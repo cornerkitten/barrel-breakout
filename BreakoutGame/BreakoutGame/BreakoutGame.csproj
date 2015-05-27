@@ -72,6 +72,8 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameEntities\Paddle.cs" />
+    <Compile Include="Physics\RigidBodyPhysics.cs" />
     <Compile Include="Sprites\AnimatedSprite.cs" />
     <Compile Include="GameEntities\Barrel.cs" />
     <Compile Include="Behaviors\BarrelBehavior.cs" />

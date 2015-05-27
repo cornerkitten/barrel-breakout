@@ -28,7 +28,7 @@ namespace Mabv.Breakout.GameEntities
             this.behavior = new BarrelBehavior(this);
             this.sprite = new AnimatedSprite(Textures.RotatingBarrel, 1, 5, 5);
             this.collider = new BoxCollider(32, 32, this.physics, this.behavior);
-            game.CollisionController.AddCollider(this.collider);
+            this.game.CollisionController.AddCollider(this.collider);
         }
 
         public void Update()

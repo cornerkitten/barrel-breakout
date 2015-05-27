@@ -9,6 +9,8 @@ namespace Mabv.Breakout.Sprites
 {
     public interface ISprite
     {
+        int Height { get; }
+        int Width { get; }
         void Update();
         void Draw(SpriteBatch spriteBatch, Vector2 location);
     }

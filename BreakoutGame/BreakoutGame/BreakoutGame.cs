@@ -23,12 +23,12 @@ namespace Mabv.Breakout
         }
         public GameEntityController GameEntityController
         {
-            get { return (GameEntityController)gameEntityController; }
+            get { return gameEntityController; }
         }
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private IController collisionController;
-        private IController gameEntityController;
+        private GameEntityController gameEntityController;
 
         public BreakoutGame()
         {
@@ -82,7 +82,7 @@ namespace Mabv.Breakout
         {
             GraphicsDevice.Clear(Color.Green);
 
-            ((GameEntityController)gameEntityController).Draw(spriteBatch);
+            gameEntityController.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }
@@ -93,10 +93,11 @@ namespace Mabv.Breakout
             {
                 for (int j = 32; j < WindowHeight / 2 - 64; j += 64)
                 {
-                    ((GameEntityController)gameEntityController).AddGameEntity(new Barrel(this, new Vector2(i, j)));
+                    gameEntityController.AddGameEntity(new Barrel(this, new Vector2(i, j)));
                 }
             }
-            ((GameEntityController)gameEntityController).AddGameEntity(new DonkeyKong(this, new Vector2(WindowWidth / 2, WindowHeight / 2)));
+            GameEntityController.AddGameEntity(new Paddle(this, new Vector2(WindowWidth / 2, WindowHeight - 64)));
+            GameEntityController.AddGameEntity(new DonkeyKong(this, new Vector2(WindowWidth / 2, WindowHeight / 2)));
         }
     }
 }
