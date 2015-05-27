@@ -1,11 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Mabv.Breakout.Behaviors;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Breakout
+namespace Mabv.Breakout.Sprites
 {
     public class AnimatedSprite : ISprite
     {

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Mabv.Breakout.Collisions;
+using Mabv.Breakout.GameEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Breakout
+namespace Mabv.Breakout.Behaviors
 {
     public class DonkeyKongBehavior : Behavior
     {

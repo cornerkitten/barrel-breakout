@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Breakout
+namespace Mabv.Breakout.Physics
 {
     public class DonkeyKongPhysics : IPhysics
     {
@@ -20,7 +20,7 @@ namespace Breakout
         {
             this.transform = transform;
             this.Velocity = velocity;
-            this.locationBoundary = new Rectangle(0, 0, 800, 600);
+            this.locationBoundary = new Rectangle(0, 0, 640, 480);
             //this.spriteEffect = SpriteEffects.None;
             //this.boundingBox = new Rectangle(0, 0, 45, 45);
         }

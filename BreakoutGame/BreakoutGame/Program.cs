@@ -1,6 +1,6 @@
 using System;
 
-namespace Breakout
+namespace Mabv.Breakout
 {
 #if WINDOWS || XBOX
     static class Program

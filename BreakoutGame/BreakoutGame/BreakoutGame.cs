@@ -8,11 +8,15 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Mabv.Breakout.Collisions;
+using Mabv.Breakout.GameEntities;
 
-namespace Breakout
+namespace Mabv.Breakout
 {
     public class BreakoutGame : Microsoft.Xna.Framework.Game
     {
+        private const int WindowWidth = 640;
+        private const int WindowHeight = 480;
         public CollisionController CollisionController
         {
             get { return (CollisionController)collisionController; }
@@ -29,6 +33,9 @@ namespace Breakout
         public BreakoutGame()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = BreakoutGame.WindowWidth;
+            graphics.PreferredBackBufferHeight = BreakoutGame.WindowHeight;
+            graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             collisionController = new CollisionController();
             gameEntityController = new GameEntityController();
@@ -73,7 +80,7 @@ namespace Breakout
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.Green);
 
             ((GameEntityController)gameEntityController).Draw(spriteBatch);
 
@@ -82,14 +89,14 @@ namespace Breakout
 
         private void CreateGameEntities()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 32; i < WindowWidth - 64; i += 64)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 32; j < WindowHeight / 2 - 64; j += 64)
                 {
-                    ((GameEntityController)gameEntityController).AddGameEntity(new Barrel(this, new Vector2(32 + 64 * i, 32 + 64 * j)));
+                    ((GameEntityController)gameEntityController).AddGameEntity(new Barrel(this, new Vector2(i, j)));
                 }
             }
-            ((GameEntityController)gameEntityController).AddGameEntity(new DonkeyKong(this, new Vector2(32, 32 * 4)));
+            ((GameEntityController)gameEntityController).AddGameEntity(new DonkeyKong(this, new Vector2(WindowWidth / 2, WindowHeight / 2)));
         }
     }
 }

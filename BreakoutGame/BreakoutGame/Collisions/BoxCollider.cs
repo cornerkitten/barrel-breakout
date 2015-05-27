@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Mabv.Breakout.Behaviors;
+using Mabv.Breakout.Physics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Breakout
+namespace Mabv.Breakout.Collisions
 {
     public class BoxCollider : ICollider
     {

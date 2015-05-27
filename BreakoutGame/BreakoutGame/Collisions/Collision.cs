@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Breakout
+namespace Mabv.Breakout.Collisions
 {
     public class Collision : ICollision
     {
