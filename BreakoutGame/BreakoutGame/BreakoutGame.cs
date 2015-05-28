@@ -106,12 +106,18 @@ namespace Mabv.Breakout
             ICommand moveLeftCommand = new MoveLeftCommand(paddle);
             ICommand moveRightCommand = new MoveRightCommand(paddle);
             ICommand stopMovingCommand = new StopMovingCommand(paddle);
+            ICommand moveUpCommand = new MoveUpCommand(paddle);
+            ICommand moveDownCommand = new MoveDownCommand(paddle);
             keyboardInputController.RegisterCommand(Keys.Left, moveLeftCommand);
             keyboardInputController.RegisterCommand(Keys.A, moveLeftCommand);
             keyboardInputController.RegisterCommand(Keys.Right, moveRightCommand);
             keyboardInputController.RegisterCommand(Keys.D, moveRightCommand);
             keyboardInputController.RegisterCommand(Keys.Space, stopMovingCommand);
-            keyboardInputController.RegisterCommand(Keys.S, stopMovingCommand);
+            //keyboardInputController.RegisterCommand(Keys.S, stopMovingCommand);
+            keyboardInputController.RegisterCommand(Keys.Down, moveDownCommand);
+            keyboardInputController.RegisterCommand(Keys.S, moveDownCommand);
+            keyboardInputController.RegisterCommand(Keys.Up, moveUpCommand);
+            keyboardInputController.RegisterCommand(Keys.W, moveUpCommand);
 
             ICommand quitGameCommand = new QuitGameCommand(this);
             keyboardInputController.RegisterCommand(Keys.Q, quitGameCommand);

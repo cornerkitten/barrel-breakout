@@ -42,12 +42,24 @@ namespace Mabv.Breakout.GameEntities
 
         public void MoveLeft()
         {
-            this.physics.Velocity = new Vector2(-12, 0);
+            //this.physics.Velocity = new Vector2(-12, 0);
+            this.physics.Velocity = new Vector2(-3, 0);
         }
 
         public void MoveRight()
         {
-            this.physics.Velocity = new Vector2(12, 0);
+            //this.physics.Velocity = new Vector2(12, 0);
+            this.physics.Velocity = new Vector2(3, 0);
+        }
+
+        public void MoveUp()
+        {
+            this.physics.Velocity = new Vector2(0, -3);
+        }
+
+        public void MoveDown()
+        {
+            this.physics.Velocity = new Vector2(0, 3);
         }
 
         public void StopMoving()

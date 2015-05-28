@@ -75,8 +75,10 @@
     <Compile Include="GameEntities\Paddle.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="KeyboardInputController.cs" />
+    <Compile Include="MoveDownCommand.cs" />
     <Compile Include="MoveLeftCommand.cs" />
     <Compile Include="MoveRightCommand.cs" />
+    <Compile Include="MoveUpCommand.cs" />
     <Compile Include="Physics\RigidBodyPhysics.cs" />
     <Compile Include="QuitGameCommand.cs" />
     <Compile Include="Sprites\AnimatedSprite.cs" />

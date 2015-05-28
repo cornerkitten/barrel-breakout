@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,10 +23,11 @@ namespace Mabv.Breakout.Collisions
         {
             if (collider is BoxCollider && otherCollider is BoxCollider)
             {
-                if (((BoxCollider)collider).CollidesWith((BoxCollider)otherCollider))
+                Vector2 overlap = ((BoxCollider)collider).CollidesWith((BoxCollider)otherCollider);
+                if (overlap != Vector2.Zero)
                 {
-                    collision = new Collision(otherCollider);
-                    otherCollision = new Collision(collider);
+                    collision = new Collision(otherCollider, overlap);
+                    otherCollision = new Collision(collider, overlap * -1);
                 }
             }
         }

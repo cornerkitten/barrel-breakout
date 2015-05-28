@@ -29,11 +29,49 @@ namespace Mabv.Breakout.Collisions
             this.gameEntity = gameEntity;
         }
 
-        public bool CollidesWith(BoxCollider boxCollider)
+        public Vector2 CollidesWith(BoxCollider boxCollider)
         {
             Rectangle rectangle = new Rectangle((int)physics.Transform.Location.X, (int)physics.Transform.Location.Y, Width, Height);
             Rectangle otherRectangle = new Rectangle((int)boxCollider.Physics.Transform.Location.X, (int)boxCollider.Physics.Transform.Location.Y, boxCollider.Width, boxCollider.Height);
-            return rectangle.Intersects(otherRectangle);
+
+            if (rectangle.Intersects(otherRectangle))
+            {
+                return minimumOverlap(rectangle, otherRectangle);
+            }
+            return Vector2.Zero;
+        }
+
+        private Vector2 minimumOverlap(Rectangle rectangle, Rectangle otherRectangle)
+        {
+            int horizontalMin = 0;
+            int verticalMin = 0;
+            
+            if (rectangle.Center.X < otherRectangle.Center.X)
+            {
+                horizontalMin = otherRectangle.Left - rectangle.Right;
+            }
+            else
+            {
+                horizontalMin = otherRectangle.Right - rectangle.Left;
+            }
+
+            if (rectangle.Center.Y < otherRectangle.Center.Y)
+            {
+                verticalMin = otherRectangle.Top - rectangle.Bottom;
+            }
+            else
+            {
+                verticalMin = otherRectangle.Bottom - rectangle.Top;
+            }
+
+            if (Math.Abs(horizontalMin) < Math.Abs(verticalMin))
+            {
+                return new Vector2(horizontalMin, 0);
+            }
+            else
+            {
+                return new Vector2(0, verticalMin);
+            }
         }
     }
 }

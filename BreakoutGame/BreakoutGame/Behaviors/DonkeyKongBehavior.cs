@@ -19,6 +19,7 @@ namespace Mabv.Breakout.Behaviors
         override public void OnCollisionEnter(ICollision collision)
         {
             Console.WriteLine("DonkeyKongBehavior.OnCollisionEnter");
+            donkeyKong.Transform.Location += collision.Overlap;
 
             if (collision.Collider.AttachedGameEntity is Paddle)
             {
