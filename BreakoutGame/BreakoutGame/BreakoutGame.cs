@@ -15,8 +15,8 @@ namespace Mabv.Breakout
 {
     public class BreakoutGame : Microsoft.Xna.Framework.Game
     {
-        private const int WindowWidth = 640;
-        private const int WindowHeight = 480;
+        private const int WindowWidth = 800;
+        private const int WindowHeight = 600;
         public CollisionController CollisionController
         {
             get { return (CollisionController)collisionController; }
@@ -29,6 +29,7 @@ namespace Mabv.Breakout
         private SpriteBatch spriteBatch;
         private IController collisionController;
         private GameEntityController gameEntityController;
+        private KeyboardInputController keyboardInputController;
 
         public BreakoutGame()
         {
@@ -39,6 +40,7 @@ namespace Mabv.Breakout
             Content.RootDirectory = "Content";
             collisionController = new CollisionController();
             gameEntityController = new GameEntityController();
+            keyboardInputController = new KeyboardInputController();
         }
 
         /// <summary>
@@ -69,9 +71,10 @@ namespace Mabv.Breakout
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            //    this.Exit();
 
+            keyboardInputController.Update();
             gameEntityController.Update();
             collisionController.Update();
 
@@ -96,8 +99,22 @@ namespace Mabv.Breakout
                     gameEntityController.AddGameEntity(new Barrel(this, new Vector2(i, j)));
                 }
             }
-            GameEntityController.AddGameEntity(new Paddle(this, new Vector2(WindowWidth / 2, WindowHeight - 64)));
+            Paddle paddle = new Paddle(this, new Vector2(WindowWidth / 2, WindowHeight - 64));
+            GameEntityController.AddGameEntity(paddle);
             GameEntityController.AddGameEntity(new DonkeyKong(this, new Vector2(WindowWidth / 2, WindowHeight / 2)));
+
+            ICommand moveLeftCommand = new MoveLeftCommand(paddle);
+            ICommand moveRightCommand = new MoveRightCommand(paddle);
+            ICommand stopMovingCommand = new StopMovingCommand(paddle);
+            keyboardInputController.RegisterCommand(Keys.Left, moveLeftCommand);
+            keyboardInputController.RegisterCommand(Keys.A, moveLeftCommand);
+            keyboardInputController.RegisterCommand(Keys.Right, moveRightCommand);
+            keyboardInputController.RegisterCommand(Keys.D, moveRightCommand);
+            keyboardInputController.RegisterCommand(Keys.Space, stopMovingCommand);
+            keyboardInputController.RegisterCommand(Keys.S, stopMovingCommand);
+
+            ICommand quitGameCommand = new QuitGameCommand(this);
+            keyboardInputController.RegisterCommand(Keys.Q, quitGameCommand);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Mabv.Breakout.GameEntities
 {
     public class DonkeyKong : IGameEntity
     {
+        public ITransform Transform { get { return transform; } }
         private ISprite sprite;
         private IPhysics physics;
         private ICollider collider;
@@ -23,9 +24,10 @@ namespace Mabv.Breakout.GameEntities
         {
             this.transform = new Transform(location);
             this.physics = new DonkeyKongPhysics(this.transform, new Vector2(5, 5));
+            //this.physics = new DonkeyKongPhysics(this.transform, new Vector2(0, -2));
             this.sprite = new AnimatedSprite(Textures.RotatingDonkeyKong, 1, 16, 2);
             this.behavior = new DonkeyKongBehavior(this);
-            this.collider = new BoxCollider(32, 32, this.physics, this.behavior);
+            this.collider = new BoxCollider(32, 32, this.physics, this.behavior, this);
             game.CollisionController.AddCollider(this.collider);
         }
 
@@ -44,6 +46,36 @@ namespace Mabv.Breakout.GameEntities
         public void Bounce()
         {
             physics.Velocity *= -1;
+        }
+
+        public void PaddleBounce(int direction)
+        {
+            Console.WriteLine("DonkeyKong.PaddleBounce direction = " + direction);
+            float velocityX = 0;
+
+            if (physics.Velocity.X < 0 && direction < 0)
+            {
+                velocityX = physics.Velocity.X * 1.2f;
+            }
+            else if (physics.Velocity.X > 0 && direction > 0)
+            {
+                velocityX = physics.Velocity.X * 1.2f;
+            }
+            else
+            {
+                velocityX = physics.Velocity.X;
+            }
+
+            if (velocityX < -10)
+            {
+                velocityX = -10;
+            }
+            if (velocityX > 10)
+            {
+                velocityX = 10;
+            }
+
+            physics.Velocity = new Vector2(velocityX, -1 * physics.Velocity.Y);
         }
     }
 }

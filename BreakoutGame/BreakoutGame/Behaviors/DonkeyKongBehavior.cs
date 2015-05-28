@@ -19,7 +19,23 @@ namespace Mabv.Breakout.Behaviors
         override public void OnCollisionEnter(ICollision collision)
         {
             Console.WriteLine("DonkeyKongBehavior.OnCollisionEnter");
-            donkeyKong.Bounce();
+
+            if (collision.Collider.AttachedGameEntity is Paddle)
+            {
+                Paddle paddle = (Paddle)(collision.Collider.AttachedGameEntity);
+                if (donkeyKong.Transform.Location.X < paddle.Transform.Location.X)
+                {
+                    donkeyKong.PaddleBounce(-1);
+                }
+                else
+                {
+                    donkeyKong.PaddleBounce(1);
+                }
+            }
+            else
+            {
+                donkeyKong.Bounce();
+            }
         }
     }
 }

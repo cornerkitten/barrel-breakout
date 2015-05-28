@@ -12,6 +12,7 @@ namespace Mabv.Breakout.GameEntities
 {
     public class Paddle : IGameEntity
     {
+        public ITransform Transform { get { return transform; } }
         private IPhysics physics;
         private ISprite sprite;
         private ICollider collider;
@@ -24,7 +25,7 @@ namespace Mabv.Breakout.GameEntities
             this.transform = new Transform(location);
             this.physics = new RigidBodyPhysics(this.transform);
             this.sprite = new AnimatedSprite(Textures.PlatformUp, 1, 1);
-            this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics);
+            this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, null, this);
             this.game.CollisionController.AddCollider(this.collider);
         }
 
@@ -37,6 +38,21 @@ namespace Mabv.Breakout.GameEntities
         public void Draw(SpriteBatch spriteBatch)
         {
             sprite.Draw(spriteBatch, this.transform.Location);
+        }
+
+        public void MoveLeft()
+        {
+            this.physics.Velocity = new Vector2(-12, 0);
+        }
+
+        public void MoveRight()
+        {
+            this.physics.Velocity = new Vector2(12, 0);
+        }
+
+        public void StopMoving()
+        {
+            this.physics.Velocity = new Vector2(0, 0);
         }
     }
 }

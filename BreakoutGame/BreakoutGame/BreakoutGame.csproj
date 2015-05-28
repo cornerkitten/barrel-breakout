@@ -73,7 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameEntities\Paddle.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="KeyboardInputController.cs" />
+    <Compile Include="MoveLeftCommand.cs" />
+    <Compile Include="MoveRightCommand.cs" />
     <Compile Include="Physics\RigidBodyPhysics.cs" />
+    <Compile Include="QuitGameCommand.cs" />
     <Compile Include="Sprites\AnimatedSprite.cs" />
     <Compile Include="GameEntities\Barrel.cs" />
     <Compile Include="Behaviors\BarrelBehavior.cs" />
@@ -99,6 +104,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="BreakoutGame.cs" />
+    <Compile Include="StopMovingCommand.cs" />
     <Compile Include="Textures.cs" />
     <Compile Include="Transform.cs" />
   </ItemGroup>

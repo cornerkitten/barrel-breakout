@@ -20,7 +20,7 @@ namespace Mabv.Breakout.Physics
         {
             this.transform = transform;
             this.Velocity = velocity;
-            this.locationBoundary = new Rectangle(0, 0, 640, 480);
+            this.locationBoundary = new Rectangle(0, 0, 800, 600);
             //this.spriteEffect = SpriteEffects.None;
             //this.boundingBox = new Rectangle(0, 0, 45, 45);
         }

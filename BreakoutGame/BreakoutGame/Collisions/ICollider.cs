@@ -1,4 +1,5 @@
 ﻿using Mabv.Breakout.Behaviors;
+using Mabv.Breakout.GameEntities;
 using Mabv.Breakout.Physics;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,6 @@ namespace Mabv.Breakout.Collisions
     {
         IPhysics Physics { get; }
         IBehavior AttachedBehavior { get; }
+        IGameEntity AttachedGameEntity { get; }
     }
 }

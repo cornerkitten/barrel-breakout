@@ -1,4 +1,5 @@
 ﻿using Mabv.Breakout.Behaviors;
+using Mabv.Breakout.GameEntities;
 using Mabv.Breakout.Physics;
 using Microsoft.Xna.Framework;
 using System;
@@ -12,17 +13,20 @@ namespace Mabv.Breakout.Collisions
     {
         public IPhysics Physics { get { return physics; } }
         public IBehavior AttachedBehavior { get { return attachedBehavior; } }
+        public IGameEntity AttachedGameEntity { get { return gameEntity; } }
         public int Width { get; set; }
         public int Height { get; set; }
         private IPhysics physics;
         private IBehavior attachedBehavior;
+        private IGameEntity gameEntity;
         
-        public BoxCollider(int width, int height, IPhysics physics, IBehavior attachedBehavior = null)
+        public BoxCollider(int width, int height, IPhysics physics, IBehavior attachedBehavior = null, IGameEntity gameEntity = null)
         {
             this.Width = width;
             this.Height = height;
             this.physics = physics;
             this.attachedBehavior = attachedBehavior;
+            this.gameEntity = gameEntity;
         }
 
         public bool CollidesWith(BoxCollider boxCollider)
