@@ -10,6 +10,7 @@ namespace Mabv.Breakout.Collisions
 {
     public interface ICollider
     {
+        // TODO consider treating and naming this as AttachedPhysics, rather than Physics
         IPhysics Physics { get; }
         IBehavior AttachedBehavior { get; }
         IGameEntity AttachedGameEntity { get; }

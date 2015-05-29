@@ -23,8 +23,8 @@ namespace Mabv.Breakout.GameEntities
         public DonkeyKong(BreakoutGame game, Vector2 location)
         {
             this.transform = new Transform(location);
-            this.physics = new DonkeyKongPhysics(this.transform, new Vector2(0, 0));
-            //this.physics = new DonkeyKongPhysics(this.transform, new Vector2(5, 5));
+            //this.physics = new DonkeyKongPhysics(this.transform, new Vector2(0, 0));
+            this.physics = new DonkeyKongPhysics(this.transform, new Vector2(5, 5));
             //this.physics = new DonkeyKongPhysics(this.transform, new Vector2(0, -2));
             this.sprite = new AnimatedSprite(Textures.RotatingDonkeyKong, 1, 16, 2);
             this.behavior = new DonkeyKongBehavior(this);
@@ -44,9 +44,35 @@ namespace Mabv.Breakout.GameEntities
         }
 
         // TODO Not sure if this would be better fit in a bevior, or not
-        public void Bounce()
+        public void Bounce(bool isHorizontalBounce, bool isVerticalBounce)
         {
-            physics.Velocity *= -1;
+            Vector2 newVelocity = physics.Velocity;
+            if (isHorizontalBounce)
+            {
+                newVelocity.X *= -1;
+            }
+            
+            if (isVerticalBounce)
+            {
+                newVelocity.Y *= -1;
+            }
+
+            physics.Velocity = newVelocity;
+        }
+        public void PaddleBounce(float horizontalScalar, float verticalScalar)
+        {
+            Vector2 newVelocity = physics.Velocity;
+            if (horizontalScalar != 0)
+            {
+                newVelocity.X *= horizontalScalar;
+            }
+            
+            if (verticalScalar != 0)
+            {
+                newVelocity.Y *= verticalScalar;
+            }
+
+            physics.Velocity = newVelocity;
         }
 
         public void PaddleBounce(int direction)

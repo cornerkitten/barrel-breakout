@@ -105,7 +105,13 @@ namespace Mabv.Breakout
             Paddle paddle = new Paddle(this, new Vector2(WindowWidth / 2, WindowHeight - 64));
             gameEntityController.AddGameEntity(paddle);
             gameEntityController.AddGameEntity(new DonkeyKong(this, new Vector2(WindowWidth / 2, WindowHeight / 2)));
+            gameEntityController.AddGameEntity(new LevelBoundary(this));
 
+            RegisterKeyboardCommands(paddle);
+        }
+
+        private void RegisterKeyboardCommands(Paddle paddle)
+        {
             ICommand moveLeftCommand = new MoveLeftCommand(paddle);
             ICommand moveRightCommand = new MoveRightCommand(paddle);
             ICommand stopMovingCommand = new StopMovingCommand(paddle);

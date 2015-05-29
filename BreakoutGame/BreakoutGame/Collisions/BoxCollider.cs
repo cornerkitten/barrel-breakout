@@ -20,6 +20,7 @@ namespace Mabv.Breakout.Collisions
         private IBehavior attachedBehavior;
         private IGameEntity gameEntity;
         
+        // TODO consider adding a parameter ITransform transform (or, decided that physics really is what the collider should reference for position/rotation data)
         public BoxCollider(int width, int height, IPhysics physics, IBehavior attachedBehavior = null, IGameEntity gameEntity = null)
         {
             this.Width = width;

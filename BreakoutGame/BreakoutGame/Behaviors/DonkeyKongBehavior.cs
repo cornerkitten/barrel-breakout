@@ -18,7 +18,7 @@ namespace Mabv.Breakout.Behaviors
 
         override public void OnCollisionEnter(ICollision collision)
         {
-            Console.WriteLine("DonkeyKongBehavior.OnCollisionEnter");
+            //Console.WriteLine("DonkeyKongBehavior.OnCollisionEnter");
             donkeyKong.Transform.Location += collision.Overlap;
 
             if (collision.Collider.AttachedGameEntity is Paddle)
@@ -26,16 +26,41 @@ namespace Mabv.Breakout.Behaviors
                 Paddle paddle = (Paddle)(collision.Collider.AttachedGameEntity);
                 if (donkeyKong.Transform.Location.X < paddle.Transform.Location.X)
                 {
-                    donkeyKong.PaddleBounce(-1);
+                    //donkeyKong.PaddleBounce(-1);
                 }
                 else
                 {
-                    donkeyKong.PaddleBounce(1);
+                    //donkeyKong.PaddleBounce(1);
+                }
+
+
+                if (collision.Overlap.X != 0 && collision.Overlap.Y != 0)
+                {
+                    donkeyKong.PaddleBounce(-1, -1);
+                }
+                else if (collision.Overlap.X != 0)
+                {
+                    donkeyKong.PaddleBounce(-1, 0);
+                }
+                else
+                {
+                    donkeyKong.PaddleBounce(0, -1);
                 }
             }
             else
             {
-                donkeyKong.Bounce();
+                if (collision.Overlap.X != 0 && collision.Overlap.Y != 0)
+                {
+                    donkeyKong.Bounce(true, true);
+                }
+                else if (collision.Overlap.X != 0)
+                {
+                    donkeyKong.Bounce(true, false);
+                }
+                else
+                {
+                    donkeyKong.Bounce(false, true);
+                }
             }
         }
     }

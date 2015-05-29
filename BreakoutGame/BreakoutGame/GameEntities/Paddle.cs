@@ -1,4 +1,5 @@
-﻿using Mabv.Breakout.Collisions;
+﻿using Mabv.Breakout.Behaviors;
+using Mabv.Breakout.Collisions;
 using Mabv.Breakout.Physics;
 using Mabv.Breakout.Sprites;
 using Microsoft.Xna.Framework;
@@ -18,6 +19,7 @@ namespace Mabv.Breakout.GameEntities
         private ICollider collider;
         private ITransform transform;
         private BreakoutGame game;
+        private IBehavior behavior; 
 
         public Paddle(BreakoutGame game, Vector2 location)
         {
@@ -25,7 +27,8 @@ namespace Mabv.Breakout.GameEntities
             this.transform = new Transform(location);
             this.physics = new RigidBodyPhysics(this.transform);
             this.sprite = new AnimatedSprite(Textures.PlatformUp, 1, 1);
-            this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, null, this);
+            this.behavior = new PaddleBehavior(this);
+            this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
             this.game.CollisionController.AddCollider(this.collider);
         }
 
@@ -42,14 +45,14 @@ namespace Mabv.Breakout.GameEntities
 
         public void MoveLeft()
         {
-            //this.physics.Velocity = new Vector2(-12, 0);
-            this.physics.Velocity = new Vector2(-3, 0);
+            this.physics.Velocity = new Vector2(-12, 0);
+            //this.physics.Velocity = new Vector2(-3, 0);
         }
 
         public void MoveRight()
         {
-            //this.physics.Velocity = new Vector2(12, 0);
-            this.physics.Velocity = new Vector2(3, 0);
+            this.physics.Velocity = new Vector2(12, 0);
+            //this.physics.Velocity = new Vector2(3, 0);
         }
 
         public void MoveUp()
