@@ -28,7 +28,7 @@ namespace Mabv.Breakout.GameEntities
             //this.physics = new DonkeyKongPhysics(this.transform, new Vector2(0, -2));
             this.sprite = new AnimatedSprite(Textures.RotatingDonkeyKong, 1, 16, 2);
             this.behavior = new DonkeyKongBehavior(this);
-            this.collider = new BoxCollider(32, 32, this.physics, this.behavior, this);
+            this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
             game.CollisionController.AddCollider(this.collider);
         }
 

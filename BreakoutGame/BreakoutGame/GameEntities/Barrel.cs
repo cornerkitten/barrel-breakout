@@ -24,10 +24,10 @@ namespace Mabv.Breakout.GameEntities
         {
             this.game = game;
             this.transform = new Transform(location);
-            this.physics = new BarrelPhysics(this.transform);
+            this.physics = new RigidBodyPhysics(this.transform);
             this.behavior = new BarrelBehavior(this);
             this.sprite = new AnimatedSprite(Textures.RotatingBarrel, 1, 5, 5);
-            this.collider = new BoxCollider(32, 32, this.physics, this.behavior);
+            this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior);
             this.game.CollisionController.AddCollider(this.collider);
         }
 

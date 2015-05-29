@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mabv.Breakout
+namespace Mabv.Breakout.Commands
 {
-    public class MoveUpCommand : ICommand
+    public class MoveLeftCommand : ICommand
     {
         private Paddle paddle;
 
-        public MoveUpCommand(Paddle paddle)
+        public MoveLeftCommand(Paddle paddle)
         {
             this.paddle = paddle;
         }
 
         public void Execute()
         {
-            paddle.MoveUp();
+            paddle.MoveLeft();
         }
     }
 }

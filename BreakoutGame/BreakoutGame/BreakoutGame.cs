@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Mabv.Breakout.Collisions;
 using Mabv.Breakout.GameEntities;
+using Mabv.Breakout.Commands;
 
 namespace Mabv.Breakout
 {
@@ -92,7 +93,9 @@ namespace Mabv.Breakout
 
         private void CreateGameEntities()
         {
-            for (int i = 32; i < WindowWidth - 64; i += 64)
+            gameEntityController.AddGameEntity(new JungleBackground());
+
+            for (int i = 105 + 16; i < WindowWidth - 105 - 32; i += 64)
             {
                 for (int j = 32; j < WindowHeight / 2 - 64; j += 64)
                 {
@@ -100,8 +103,8 @@ namespace Mabv.Breakout
                 }
             }
             Paddle paddle = new Paddle(this, new Vector2(WindowWidth / 2, WindowHeight - 64));
-            GameEntityController.AddGameEntity(paddle);
-            GameEntityController.AddGameEntity(new DonkeyKong(this, new Vector2(WindowWidth / 2, WindowHeight / 2)));
+            gameEntityController.AddGameEntity(paddle);
+            gameEntityController.AddGameEntity(new DonkeyKong(this, new Vector2(WindowWidth / 2, WindowHeight / 2)));
 
             ICommand moveLeftCommand = new MoveLeftCommand(paddle);
             ICommand moveRightCommand = new MoveRightCommand(paddle);
