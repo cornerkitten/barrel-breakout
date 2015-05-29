@@ -117,19 +117,24 @@ namespace Mabv.Breakout
             ICommand stopMovingCommand = new StopMovingCommand(paddle);
             ICommand moveUpCommand = new MoveUpCommand(paddle);
             ICommand moveDownCommand = new MoveDownCommand(paddle);
-            keyboardInputController.RegisterCommand(Keys.Left, moveLeftCommand);
-            keyboardInputController.RegisterCommand(Keys.A, moveLeftCommand);
-            keyboardInputController.RegisterCommand(Keys.Right, moveRightCommand);
-            keyboardInputController.RegisterCommand(Keys.D, moveRightCommand);
-            keyboardInputController.RegisterCommand(Keys.Space, stopMovingCommand);
-            //keyboardInputController.RegisterCommand(Keys.S, stopMovingCommand);
-            keyboardInputController.RegisterCommand(Keys.Down, moveDownCommand);
-            keyboardInputController.RegisterCommand(Keys.S, moveDownCommand);
-            keyboardInputController.RegisterCommand(Keys.Up, moveUpCommand);
-            keyboardInputController.RegisterCommand(Keys.W, moveUpCommand);
+            keyboardInputController.RegisterCommandKeyDown(Keys.Left, moveLeftCommand);
+            keyboardInputController.RegisterCommandKeyDown(Keys.A, moveLeftCommand);
+            keyboardInputController.RegisterCommandKeyDown(Keys.Right, moveRightCommand);
+            keyboardInputController.RegisterCommandKeyDown(Keys.D, moveRightCommand);
+            keyboardInputController.RegisterCommandKeyUp(Keys.Left, stopMovingCommand);
+            keyboardInputController.RegisterCommandKeyUp(Keys.A, stopMovingCommand);
+            keyboardInputController.RegisterCommandKeyUp(Keys.Right, stopMovingCommand);
+            keyboardInputController.RegisterCommandKeyUp(Keys.D, stopMovingCommand);
+            // DEBUG
+            //keyboardInputController.RegisterCommandKeyDown(Keys.Space, stopMovingCommand);
+            //keyboardInputController.RegisterCommandKeyDown(Keys.S, stopMovingCommand);
+            //keyboardInputController.RegisterCommandKeyDown(Keys.Down, moveDownCommand);
+            //keyboardInputController.RegisterCommandKeyDown(Keys.S, moveDownCommand);
+            //keyboardInputController.RegisterCommandKeyDown(Keys.Up, moveUpCommand);
+            //keyboardInputController.RegisterCommandKeyDown(Keys.W, moveUpCommand);
 
             ICommand quitGameCommand = new QuitGameCommand(this);
-            keyboardInputController.RegisterCommand(Keys.Q, quitGameCommand);
+            keyboardInputController.RegisterCommandKeyDown(Keys.Q, quitGameCommand);
         }
     }
 }

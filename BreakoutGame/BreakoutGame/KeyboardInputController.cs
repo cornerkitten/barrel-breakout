@@ -9,18 +9,25 @@ namespace Mabv.Breakout
 {
     class KeyboardInputController : IController
     {
-        private Dictionary<Keys, ICommand> inputMappings;
+        private Dictionary<Keys, ICommand> inputMappingsKeyDown;
+        private Dictionary<Keys, ICommand> inputMappingsKeyUp;
         private Keys[] oldPressedKeys;
 
         public KeyboardInputController()
         {
-            this.inputMappings = new Dictionary<Keys, ICommand>();
+            this.inputMappingsKeyDown = new Dictionary<Keys, ICommand>();
+            this.inputMappingsKeyUp = new Dictionary<Keys, ICommand>();
             this.oldPressedKeys = Keyboard.GetState().GetPressedKeys();
         }
 
-        public void RegisterCommand(Keys key, ICommand command)
+        public void RegisterCommandKeyDown(Keys key, ICommand command)
         {
-            inputMappings.Add(key, command);
+            inputMappingsKeyDown.Add(key, command);
+        }
+
+        public void RegisterCommandKeyUp(Keys key, ICommand command)
+        {
+            inputMappingsKeyUp.Add(key, command);
         }
 
         public void Update()
@@ -29,9 +36,18 @@ namespace Mabv.Breakout
             
             foreach (Keys key in newPressedKeys)
             {
-                if (inputMappings.ContainsKey(key) && Array.IndexOf(oldPressedKeys, key) < 0)
+                if (inputMappingsKeyDown.ContainsKey(key) && Array.IndexOf(oldPressedKeys, key) < 0)
                 {
-                    inputMappings[key].Execute();
+                    inputMappingsKeyDown[key].Execute();
+                }
+            }
+
+            foreach (Keys key in inputMappingsKeyUp.Keys)
+            {
+                if (Array.IndexOf(newPressedKeys, key) < 0 && Array.IndexOf(oldPressedKeys, key) >= 0)
+                {
+                    Console.WriteLine("key " + key + " up detected");
+                    inputMappingsKeyUp[key].Execute();
                 }
             }
 

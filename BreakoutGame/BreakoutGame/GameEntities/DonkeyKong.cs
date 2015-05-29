@@ -24,7 +24,8 @@ namespace Mabv.Breakout.GameEntities
         {
             this.transform = new Transform(location);
             //this.physics = new DonkeyKongPhysics(this.transform, new Vector2(0, 0));
-            this.physics = new DonkeyKongPhysics(this.transform, new Vector2(5, 5));
+            this.physics = new RigidBodyPhysics(this.transform);
+            this.physics.Velocity = new Vector2(5, -5);
             //this.physics = new DonkeyKongPhysics(this.transform, new Vector2(0, -2));
             this.sprite = new AnimatedSprite(Textures.RotatingDonkeyKong, 1, 16, 2);
             this.behavior = new DonkeyKongBehavior(this);

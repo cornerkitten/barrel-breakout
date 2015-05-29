@@ -18,14 +18,17 @@ namespace Mabv.Breakout.GameEntities
             int boundarySize = 64;
             
             IPhysics topWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(-boundarySize, -boundarySize)));
+            IPhysics bottomWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(-boundarySize, levelHeight)));
             IPhysics leftWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(-boundarySize + 90, -boundarySize)));
             IPhysics rightWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(levelWidth - 90, -boundarySize)));
 
             ICollider topWallCollider = new BoxCollider(levelWidth + 2 * boundarySize, boundarySize, topWallPhysics, null, this);
+            ICollider bottomWallCollider = new BoxCollider(levelWidth + 2 * boundarySize, boundarySize, bottomWallPhysics, null, this);
             ICollider leftWallCollider = new BoxCollider(boundarySize, levelHeight + 2 * boundarySize, leftWallPhysics, null, this);
             ICollider rightWallCollider = new BoxCollider(boundarySize, levelHeight + 2 * boundarySize, rightWallPhysics, null, this);
-            
+
             game.CollisionController.AddCollider(topWallCollider);
+            game.CollisionController.AddCollider(bottomWallCollider);
             game.CollisionController.AddCollider(leftWallCollider);
             game.CollisionController.AddCollider(rightWallCollider);
         }
