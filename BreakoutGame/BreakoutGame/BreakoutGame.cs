@@ -57,6 +57,10 @@ namespace Mabv.Breakout
 
             Textures.LoadContent(Content);
             CreateGameEntities();
+
+            Song song = Content.Load<Song>("dkc-music-island-swing");
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
         }
 
         protected override void UnloadContent()
