@@ -21,7 +21,7 @@ namespace Mabv.Breakout
             RotatingDonkeyKong = content.Load<Texture2D>("dkc-donkey-kong-rotation");
             SmokeExplosion = content.Load<Texture2D>("dkc-smoke-explosion");
             PlatformUp = content.Load<Texture2D>("dkc-platform-up");
-            JungleBackground = content.Load<Texture2D>("dkc-background-jungle-800_600");
+            JungleBackground = content.Load<Texture2D>("dkc-background-jungle");
         }
     }
 }

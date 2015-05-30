@@ -58,8 +58,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-background-jungle-800_600.png">
-      <Name>dkc-background-jungle-800_600</Name>
+    <Compile Include="dkc-background-jungle.png">
+      <Name>dkc-background-jungle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
