@@ -14,6 +14,7 @@ namespace Mabv.Breakout.Collisions
         public IPhysics Physics { get { return physics; } }
         public IBehavior AttachedBehavior { get { return attachedBehavior; } }
         public IGameEntity AttachedGameEntity { get { return gameEntity; } }
+        public Vector2 Centroid { get { return new Vector2(physics.Transform.Location.X + Width / 2, physics.Transform.Location.Y + Height / 2); } }
         public int Width { get; set; }
         public int Height { get; set; }
         private IPhysics physics;

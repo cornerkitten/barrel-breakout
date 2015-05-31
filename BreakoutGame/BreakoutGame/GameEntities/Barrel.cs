@@ -27,7 +27,7 @@ namespace Mabv.Breakout.GameEntities
             this.physics = new RigidBodyPhysics(this.transform);
             this.behavior = new BarrelBehavior(this);
             this.sprite = new AnimatedSprite(Textures.RotatingBarrel, 1, 5, 5);
-            this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior);
+            this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
             this.game.CollisionController.AddCollider(this.collider);
         }
 

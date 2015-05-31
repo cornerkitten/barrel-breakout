@@ -26,8 +26,8 @@ namespace Mabv.Breakout.Collisions
                 Vector2 overlap = ((BoxCollider)collider).CollidesWith((BoxCollider)otherCollider);
                 if (overlap != Vector2.Zero)
                 {
-                    collision = new Collision(otherCollider, overlap);
-                    otherCollision = new Collision(collider, overlap * -1);
+                    collision = new Collision(otherCollider, overlap, collider);
+                    otherCollision = new Collision(collider, overlap * -1, otherCollider);
                 }
             }
         }

@@ -71,5 +71,15 @@ namespace Mabv.Breakout.GameEntities
         {
             this.physics.Velocity = new Vector2(0, 0);
         }
+
+        public bool IsMovingLeft()
+        {
+            return (this.physics.Velocity.X < 0);
+        }
+
+        public bool IsMovingRight()
+        {
+            return (this.physics.Velocity.X > 0);
+        }
     }
 }

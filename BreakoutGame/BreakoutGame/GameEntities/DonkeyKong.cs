@@ -23,10 +23,8 @@ namespace Mabv.Breakout.GameEntities
         public DonkeyKong(BreakoutGame game, Vector2 location)
         {
             this.transform = new Transform(location);
-            //this.physics = new DonkeyKongPhysics(this.transform, new Vector2(0, 0));
             this.physics = new RigidBodyPhysics(this.transform);
-            this.physics.Velocity = new Vector2(5, -5);
-            //this.physics = new DonkeyKongPhysics(this.transform, new Vector2(0, -2));
+            this.physics.Velocity = new Vector2(3, -3);
             this.sprite = new AnimatedSprite(Textures.RotatingDonkeyKong, 1, 16, 2);
             this.behavior = new DonkeyKongBehavior(this);
             this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
@@ -45,17 +43,22 @@ namespace Mabv.Breakout.GameEntities
         }
 
         // TODO Not sure if this would be better fit in a bevior, or not
-        public void Bounce(bool isHorizontalBounce, bool isVerticalBounce)
+        public void Bounce(bool isHorizontalBounce, bool isVerticalBounce, float scale = 1)
         {
+            if (scale != 1)
+            {
+                Console.WriteLine("scale by " + scale);
+            }
+
             Vector2 newVelocity = physics.Velocity;
             if (isHorizontalBounce)
             {
-                newVelocity.X *= -1;
+                newVelocity.X *= -1f * scale;
             }
             
             if (isVerticalBounce)
             {
-                newVelocity.Y *= -1;
+                newVelocity.Y *= -1f * scale;
             }
 
             physics.Velocity = newVelocity;
@@ -104,6 +107,16 @@ namespace Mabv.Breakout.GameEntities
             }
 
             physics.Velocity = new Vector2(velocityX, -1 * physics.Velocity.Y);
+        }
+
+        public bool IsMovingLeft()
+        {
+            return (physics.Velocity.X < 0);
+        }
+
+        public bool IsMovingRight()
+        {
+            return (physics.Velocity.X > 0);
         }
     }
 }

@@ -36,30 +36,53 @@ namespace Mabv.Breakout.Behaviors
 
                 if (collision.Overlap.X != 0 && collision.Overlap.Y != 0)
                 {
-                    donkeyKong.PaddleBounce(-1, -1);
-                }
-                else if (collision.Overlap.X != 0)
-                {
-                    donkeyKong.PaddleBounce(-1, 0);
-                }
-                else
-                {
-                    donkeyKong.PaddleBounce(0, -1);
-                }
-            }
-            else
-            {
-                if (collision.Overlap.X != 0 && collision.Overlap.Y != 0)
-                {
+                    //donkeyKong.PaddleBounce(-1, -1);
                     donkeyKong.Bounce(true, true);
                 }
                 else if (collision.Overlap.X != 0)
                 {
+                    //donkeyKong.PaddleBounce(-1, 0);
                     donkeyKong.Bounce(true, false);
                 }
                 else
                 {
-                    donkeyKong.Bounce(false, true);
+                    if (collision.Collider.Centroid.X > collision.ReactingCollider.Centroid.X && donkeyKong.IsMovingRight())
+                    {
+                        donkeyKong.Bounce(true, true);
+                    }
+                    else if (collision.Collider.Centroid.X < collision.ReactingCollider.Centroid.X && donkeyKong.IsMovingLeft())
+                    {
+                        donkeyKong.Bounce(true, true);
+                    }
+                    else
+                    {
+                        //donkeyKong.PaddleBounce(0, -1);
+                        donkeyKong.Bounce(false, true);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine(collision.Collider.AttachedGameEntity);
+                float scale = 1;
+                if (collision.Collider.AttachedGameEntity is Barrel)
+                {
+
+                    Console.WriteLine("Barrel");
+                    scale = 1.05f;
+                }
+
+                if (collision.Overlap.X != 0 && collision.Overlap.Y != 0)
+                {
+                    donkeyKong.Bounce(true, true, scale);
+                }
+                else if (collision.Overlap.X != 0)
+                {
+                    donkeyKong.Bounce(true, false, scale);
+                }
+                else
+                {
+                    donkeyKong.Bounce(false, true, scale);
                 }
             }
         }

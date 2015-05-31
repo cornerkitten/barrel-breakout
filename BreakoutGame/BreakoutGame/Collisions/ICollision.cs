@@ -10,5 +10,6 @@ namespace Mabv.Breakout.Collisions
     {
         ICollider Collider { get; }
         Vector2 Overlap { get; }
+        ICollider ReactingCollider { get; }
     }
 }
