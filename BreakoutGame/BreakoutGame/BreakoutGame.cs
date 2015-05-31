@@ -31,7 +31,7 @@ namespace Mabv.Breakout
         private IController collisionController;
         private GameEntityController gameEntityController;
         private KeyboardInputController keyboardInputController;
-
+        
         public BreakoutGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -56,11 +56,13 @@ namespace Mabv.Breakout
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Textures.LoadContent(Content);
-            CreateGameEntities();
+            SoundEffects.LoadContent(Content);
 
             Song song = Content.Load<Song>("dkc-music-island-swing");
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
+
+            CreateGameEntities();
         }
 
         protected override void UnloadContent()

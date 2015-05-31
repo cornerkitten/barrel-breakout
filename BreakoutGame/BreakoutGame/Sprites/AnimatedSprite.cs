@@ -10,6 +10,7 @@ namespace Mabv.Breakout.Sprites
 {
     public class AnimatedSprite : ISprite
     {
+        private static Random random;
         public int Width { get { return width; } }
         public int Height { get { return height; } }
         private int currentFrame;
@@ -23,7 +24,7 @@ namespace Mabv.Breakout.Sprites
         private int width;
         private int height;
 
-        public AnimatedSprite(Texture2D texture, int textureRows, int textureColumns, int nextFrameThreshold = 5, IBehavior attachedBehavior = null)
+        public AnimatedSprite(Texture2D texture, int textureRows, int textureColumns, int nextFrameThreshold = 5, IBehavior attachedBehavior = null, bool hasRandomStartFrame = false)
         {
             this.texture = texture;
             this.currentFrame = 0;
@@ -35,6 +36,16 @@ namespace Mabv.Breakout.Sprites
             this.attachedBehavior = attachedBehavior;
             this.width = texture.Width / textureColumns;
             this.height = texture.Height / textureRows;
+
+            if (AnimatedSprite.random == null)
+            {
+                AnimatedSprite.random = new Random();
+            }
+
+            if (hasRandomStartFrame)
+            {
+                this.currentFrame = AnimatedSprite.random.Next(0, this.totalFrames);
+            }
         }
 
         public void Update()

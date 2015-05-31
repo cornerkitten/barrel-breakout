@@ -26,7 +26,7 @@ namespace Mabv.Breakout.GameEntities
             this.transform = new Transform(location);
             this.physics = new RigidBodyPhysics(this.transform);
             this.behavior = new BarrelBehavior(this);
-            this.sprite = new AnimatedSprite(Textures.RotatingBarrel, 1, 5, 5);
+            this.sprite = new AnimatedSprite(Textures.RotatingBarrel, 1, 5, 4, null, true);
             this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
             this.game.CollisionController.AddCollider(this.collider);
         }
@@ -44,7 +44,8 @@ namespace Mabv.Breakout.GameEntities
 
         public void Explode()
         {
-            sprite = new AnimatedSprite(Textures.SmokeExplosion, 1, 8, 3, behavior);
+            sprite = new AnimatedSprite(Textures.SmokeExplosion, 1, 8, 2, behavior);
+            SoundEffects.BarrelBreak.Play();
             game.CollisionController.RemoveCollider(collider);
         }
 
