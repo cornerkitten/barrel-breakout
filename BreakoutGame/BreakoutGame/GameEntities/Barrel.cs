@@ -46,6 +46,7 @@ namespace Mabv.Breakout.GameEntities
         {
             sprite = new AnimatedSprite(Textures.SmokeExplosion, 1, 8, 2, behavior);
             SoundEffects.BarrelBreak.Play();
+            game.IncreaseScore();
             game.CollisionController.RemoveCollider(collider);
         }
 

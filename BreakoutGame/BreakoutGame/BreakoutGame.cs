@@ -31,7 +31,8 @@ namespace Mabv.Breakout
         private IController collisionController;
         private GameEntityController gameEntityController;
         private KeyboardInputController keyboardInputController;
-        private SpriteFont bananaFont;
+        private GameData gameData;
+        private Hud hud;
         
         public BreakoutGame()
         {
@@ -43,6 +44,15 @@ namespace Mabv.Breakout
             collisionController = new CollisionController();
             gameEntityController = new GameEntityController();
             keyboardInputController = new KeyboardInputController();
+            gameData = new GameData();
+        }
+
+        public void IncreaseScore()
+        {
+            int scoreIncrement = 10;
+            gameData.Score += scoreIncrement;
+            hud.IncreaseScore(scoreIncrement);
+
         }
 
         protected override void Initialize()
@@ -58,12 +68,11 @@ namespace Mabv.Breakout
 
             Textures.LoadContent(Content);
             SoundEffects.LoadContent(Content);
+            Fonts.LoadContent(Content);
 
             Song song = Content.Load<Song>("dkc-music-island-swing");
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
-
-            bananaFont = Content.Load<SpriteFont>("dkc-banana-font");
 
             CreateGameEntities();
         }
@@ -88,10 +97,6 @@ namespace Mabv.Breakout
 
             gameEntityController.Draw(spriteBatch);
 
-            spriteBatch.Begin();
-            spriteBatch.DrawString(bananaFont, "0123456789", new Vector2(64, WindowHeight - 48), Color.White);
-            spriteBatch.End();
-
             base.Draw(gameTime);
         }
 
@@ -110,6 +115,9 @@ namespace Mabv.Breakout
             gameEntityController.AddGameEntity(paddle);
             gameEntityController.AddGameEntity(new DonkeyKong(this, new Vector2(WindowWidth / 2, WindowHeight / 2)));
             gameEntityController.AddGameEntity(new LevelBoundary(this));
+
+            hud = new Hud(this);
+            gameEntityController.AddGameEntity(hud);
 
             RegisterKeyboardCommands(paddle);
         }

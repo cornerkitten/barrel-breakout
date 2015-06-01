@@ -76,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\PaddleBehavior.cs" />
+    <Compile Include="Fonts.cs" />
+    <Compile Include="GameData.cs" />
+    <Compile Include="GameEntities\Hud.cs" />
     <Compile Include="GameEntities\LevelBoundary.cs" />
     <Compile Include="GameEntities\JungleBackground.cs" />
     <Compile Include="GameEntities\Paddle.cs" />
