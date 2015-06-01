@@ -31,6 +31,7 @@ namespace Mabv.Breakout
         private IController collisionController;
         private GameEntityController gameEntityController;
         private KeyboardInputController keyboardInputController;
+        private SpriteFont bananaFont;
         
         public BreakoutGame()
         {
@@ -62,6 +63,8 @@ namespace Mabv.Breakout
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
 
+            bananaFont = Content.Load<SpriteFont>("dkc-banana-font");
+
             CreateGameEntities();
         }
 
@@ -84,6 +87,10 @@ namespace Mabv.Breakout
             GraphicsDevice.Clear(Color.Green);
 
             gameEntityController.Draw(spriteBatch);
+
+            spriteBatch.Begin();
+            spriteBatch.DrawString(bananaFont, "0123456789", new Vector2(64, WindowHeight - 48), Color.White);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
