@@ -61,7 +61,7 @@ namespace Mabv.Breakout.Behaviors
                     }
                 }
             }
-            else
+            else if (!(collision.Collider.AttachedGameEntity is BananaBunch))
             {
                 Console.WriteLine(collision.Collider.AttachedGameEntity);
                 float scale = 1;

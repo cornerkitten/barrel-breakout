@@ -86,6 +86,27 @@
       <ProcessorParameters_FirstCharacter>0</ProcessorParameters_FirstCharacter>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="dkc-banana-bunch.png">
+      <Name>dkc-banana-bunch</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="dkc-collect-banana-bunch.mp3">
+      <Name>dkc-collect-banana-bunch</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="dkc2-collect-banana-bunch.mp3">
+      <Name>dkc2-collect-banana-bunch</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

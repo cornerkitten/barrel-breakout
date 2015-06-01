@@ -26,7 +26,7 @@ namespace Mabv.Breakout.GameEntities
             this.game = game;
             this.score = 0;
             this.displayUpdateCounter = 0;
-            this.nextDisplayUpdateThreshold = 1;
+            this.nextDisplayUpdateThreshold = 3;
             this.visibleScoreLocation = new Vector2(100 + 16, 600 - 48);
             this.hiddenScoreLocation = new Vector2(100 + 16, 600 + 8);
             this.isBecomingVisible = false;
@@ -97,6 +97,7 @@ namespace Mabv.Breakout.GameEntities
 
         public void IncreaseScore(int scoreIncrement)
         {
+            displayedScore = score;
             score += scoreIncrement;
             isBecomingVisible = true;
         }

@@ -75,9 +75,11 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\BananaBunchBehavior.cs" />
     <Compile Include="Behaviors\PaddleBehavior.cs" />
     <Compile Include="Fonts.cs" />
     <Compile Include="GameData.cs" />
+    <Compile Include="GameEntities\BananaBunch.cs" />
     <Compile Include="GameEntities\Hud.cs" />
     <Compile Include="GameEntities\LevelBoundary.cs" />
     <Compile Include="GameEntities\JungleBackground.cs" />

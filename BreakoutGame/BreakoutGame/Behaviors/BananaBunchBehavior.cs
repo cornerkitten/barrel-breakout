@@ -7,31 +7,23 @@ using System.Text;
 
 namespace Mabv.Breakout.Behaviors
 {
-    public class BarrelBehavior : Behavior
+    public class BananaBunchBehavior : Behavior
     {
-        private Barrel barrel;
+        private BananaBunch bananaBunch;
 
-        public BarrelBehavior(Barrel barrel)
+        public BananaBunchBehavior(BananaBunch bananaBunch)
         {
-            this.barrel = barrel;
+            this.bananaBunch = bananaBunch;
         }
 
         override public void OnCollisionEnter(ICollision collision)
         {
             if (collision.Collider.AttachedGameEntity is DonkeyKong)
             {
-                barrel.Explode();
+                bananaBunch.Destroy();
 
                 base.OnCollisionEnter(collision);
             }
-        }
-
-        public override void OnAnimationEnd()
-        {
-            Console.WriteLine("BarrelBehavior.OnAnimationEnd");
-            barrel.Destroy();
-
-            base.OnAnimationEnd();
         }
     }
 }

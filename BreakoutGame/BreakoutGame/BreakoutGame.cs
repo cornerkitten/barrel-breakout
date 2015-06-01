@@ -108,9 +108,12 @@ namespace Mabv.Breakout
             {
                 for (int j = 32; j < WindowHeight / 2 - 64; j += 64)
                 {
+                    gameEntityController.AddGameEntity(new BananaBunch(this, new Vector2(i + 8, j + 8)));
+
                     gameEntityController.AddGameEntity(new Barrel(this, new Vector2(i, j)));
                 }
             }
+            
             Paddle paddle = new Paddle(this, new Vector2(WindowWidth / 2, WindowHeight - 64));
             gameEntityController.AddGameEntity(paddle);
             gameEntityController.AddGameEntity(new DonkeyKong(this, new Vector2(WindowWidth / 2, WindowHeight / 2)));

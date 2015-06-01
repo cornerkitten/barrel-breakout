@@ -11,29 +11,28 @@ using System.Text;
 
 namespace Mabv.Breakout.GameEntities
 {
-    public class Barrel : IGameEntity
+    public class BananaBunch : IGameEntity
     {
-        private IPhysics physics;
-        private ISprite sprite;
-        private ICollider collider;
-        private ITransform transform;
-        private IBehavior behavior;
         private BreakoutGame game;
+        private ISprite sprite;
+        private ITransform transform;
+        private ICollider collider;
+        private IPhysics physics;
+        private IBehavior behavior;
 
-        public Barrel(BreakoutGame game, Vector2 location)
+        public BananaBunch(BreakoutGame game, Vector2 location)
         {
             this.game = game;
             this.transform = new Transform(location);
+            this.sprite = new AnimatedSprite(Textures.BananaBunch, 1, 10, 3, null, false);
             this.physics = new RigidBodyPhysics(this.transform);
-            this.behavior = new BarrelBehavior(this);
-            this.sprite = new AnimatedSprite(Textures.RotatingBarrel, 1, 5, 4, null, true);
+            this.behavior = new BananaBunchBehavior(this);
             this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
             this.game.CollisionController.AddCollider(this.collider);
         }
 
         public void Update()
         {
-            physics.Update();
             sprite.Update();
         }
 
@@ -42,16 +41,12 @@ namespace Mabv.Breakout.GameEntities
             sprite.Draw(spriteBatch, transform.Location);
         }
 
-        public void Explode()
-        {
-            sprite = new AnimatedSprite(Textures.SmokeExplosion, 1, 8, 2, behavior);
-            SoundEffects.BarrelBreak.Play();
-            //game.IncreaseScore();
-            game.CollisionController.RemoveCollider(collider);
-        }
-
         public void Destroy()
         {
+            SoundEffects.CollectBananaBunch.Play(0.8f, 0.2f, 0.0f);
+            game.IncreaseScore();
+
+            game.CollisionController.RemoveCollider(collider);
             game.GameEntityController.RemoveGameEntity(this);
         }
     }
