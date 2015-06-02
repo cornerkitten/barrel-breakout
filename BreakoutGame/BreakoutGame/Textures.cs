@@ -19,9 +19,10 @@ namespace Mabv.Breakout
         public static void LoadContent(ContentManager content)
         {
             RotatingBarrel = content.Load<Texture2D>("textures/dkc-barrel-rotation");
-            RotatingDonkeyKong = content.Load<Texture2D>("textures/dkc-donkey-kong-rotation");
+            RotatingDonkeyKong = content.Load<Texture2D>("textures/dkc-donkey-kong-rotation-bordered");
             SmokeExplosion = content.Load<Texture2D>("textures/dkc-smoke-explosion");
-            PlatformUp = content.Load<Texture2D>("textures/dkc-platform-up");
+            //PlatformUp = content.Load<Texture2D>("textures/dkc-platform-up");
+            PlatformUp = content.Load<Texture2D>("textures/barrel-paddle");
             BananaBunch = content.Load<Texture2D>("textures/dkc-banana-bunch");
             JungleBackground = content.Load<Texture2D>("textures/backgrounds/dkc-jungle");
         }
