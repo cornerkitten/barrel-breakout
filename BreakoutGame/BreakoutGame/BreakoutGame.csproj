@@ -90,6 +90,7 @@
     <Compile Include="Commands\MoveLeftCommand.cs" />
     <Compile Include="Commands\MoveRightCommand.cs" />
     <Compile Include="Commands\MoveUpCommand.cs" />
+    <Compile Include="Songs.cs" />
     <Compile Include="Physics\RigidBodyPhysics.cs" />
     <Compile Include="Commands\QuitGameCommand.cs" />
     <Compile Include="SoundEffects.cs" />

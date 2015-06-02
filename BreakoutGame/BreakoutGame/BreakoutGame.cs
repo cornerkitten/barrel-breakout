@@ -68,10 +68,10 @@ namespace Mabv.Breakout
 
             Textures.LoadContent(Content);
             SoundEffects.LoadContent(Content);
+            Songs.LoadContent(Content);
             Fonts.LoadContent(Content);
 
-            Song song = Content.Load<Song>("dkc-music-island-swing");
-            MediaPlayer.Play(song);
+            MediaPlayer.Play(Songs.IslandSwing);
             MediaPlayer.IsRepeating = true;
 
             CreateGameEntities();

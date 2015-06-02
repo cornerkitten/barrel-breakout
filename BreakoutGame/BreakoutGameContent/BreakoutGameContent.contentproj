@@ -30,56 +30,56 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-barrel-rotation.png">
+    <Compile Include="textures\dkc-barrel-rotation.png">
       <Name>dkc-barrel-rotation</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-donkey-kong-rotation.png">
+    <Compile Include="textures\dkc-donkey-kong-rotation.png">
       <Name>dkc-donkey-kong-rotation</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-smoke-explosion.png">
+    <Compile Include="textures\dkc-smoke-explosion.png">
       <Name>dkc-smoke-explosion</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-platform-up.png">
+    <Compile Include="textures\dkc-platform-up.png">
       <Name>dkc-platform-up</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-background-jungle.png">
-      <Name>dkc-background-jungle</Name>
+    <Compile Include="textures\backgrounds\dkc-jungle.png">
+      <Name>dkc-jungle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-music-island-swing.mp3">
-      <Name>dkc-music-island-swing</Name>
+    <Compile Include="songs\dkc-island-swing.mp3">
+      <Name>dkc-island-swing</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-barrel-blast-barrel.mp3">
+    <Compile Include="sfx\dkc-barrel-blast-barrel.mp3">
       <Name>dkc-barrel-blast-barrel</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-banana-font.png">
+    <Compile Include="fonts\dkc-banana-font.png">
       <Name>dkc-banana-font</Name>
       <Importer>TextureImporter</Importer>
       <Processor>FontTextureProcessor</Processor>
@@ -87,26 +87,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-banana-bunch.png">
+    <Compile Include="textures\dkc-banana-bunch.png">
       <Name>dkc-banana-bunch</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc-collect-banana-bunch.mp3">
+    <Compile Include="sfx\dkc-collect-banana-bunch.mp3">
       <Name>dkc-collect-banana-bunch</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dkc2-collect-banana-bunch.mp3">
+    <Compile Include="sfx\dkc2-collect-banana-bunch.mp3">
       <Name>dkc2-collect-banana-bunch</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

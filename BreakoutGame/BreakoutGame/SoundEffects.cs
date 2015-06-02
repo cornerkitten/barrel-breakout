@@ -16,8 +16,8 @@ namespace Mabv.Breakout
 
         public static void LoadContent(ContentManager content)
         {
-            barrelBreak = content.Load<SoundEffect>("dkc-barrel-blast-barrel");
-            collectBananaBunch = content.Load<SoundEffect>("dkc2-collect-banana-bunch");
+            barrelBreak = content.Load<SoundEffect>("sfx/dkc-barrel-blast-barrel");
+            collectBananaBunch = content.Load<SoundEffect>("sfx/dkc2-collect-banana-bunch");
         }
     }
 }
