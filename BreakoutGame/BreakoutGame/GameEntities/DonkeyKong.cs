@@ -63,6 +63,32 @@ namespace Mabv.Breakout.GameEntities
 
             physics.Velocity = newVelocity;
         }
+
+        public void Bounce(bool isHorizontalBounce, bool isVerticalBounce, float horizontalScale, float verticalScale)
+        {
+            if (horizontalScale != 1.0f || verticalScale != 1.0f)
+            {
+                Console.WriteLine("scale by " + horizontalScale + ", " + verticalScale);
+            }
+
+            float newVelocityMagnitude = physics.Velocity.Length();
+            Vector2 newVelocityDirection = physics.Velocity;
+            if (isHorizontalBounce)
+            {
+                newVelocityDirection.X *= -1f;
+            }
+            newVelocityDirection.X *= horizontalScale;
+            
+            if (isVerticalBounce)
+            {
+                newVelocityDirection.Y *= -1f;
+            }
+            newVelocityDirection.Y *= verticalScale;
+            newVelocityDirection.Normalize();
+
+            physics.Velocity = newVelocityDirection * newVelocityMagnitude;
+        }
+
         public void PaddleBounce(float horizontalScalar, float verticalScalar)
         {
             Vector2 newVelocity = physics.Velocity;

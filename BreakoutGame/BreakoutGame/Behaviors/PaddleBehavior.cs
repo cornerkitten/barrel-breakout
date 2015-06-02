@@ -25,6 +25,11 @@ namespace Mabv.Breakout.Behaviors
                 paddle.Transform.Location += collision.Overlap;
                 paddle.StopMoving();
             }
+
+            if (collision.Collider.AttachedGameEntity is DonkeyKong)
+            {
+                paddle.Wobble();
+            }
         }
     }
 }

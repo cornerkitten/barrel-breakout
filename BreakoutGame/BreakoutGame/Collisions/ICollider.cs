@@ -17,5 +17,9 @@ namespace Mabv.Breakout.Collisions
         IGameEntity AttachedGameEntity { get; }
         // TODO determine if sensible to have this exposed by ICollider
         Vector2 Centroid { get; }
+        // TODO determine if sensible to have this exposed by ICollider
+        int Width { get; }
+        // TODO determine if sensible to have this exposed by ICollider
+        int Height { get; }
     }
 }

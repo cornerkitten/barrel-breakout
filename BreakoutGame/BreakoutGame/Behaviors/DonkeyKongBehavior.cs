@@ -23,6 +23,15 @@ namespace Mabv.Breakout.Behaviors
 
             if (collision.Collider.AttachedGameEntity is Paddle)
             {
+                SoundEffects.BarrelBounce.Play(1.0f, 1.0f, 0.0f);
+            }
+            else if (collision.Collider.AttachedGameEntity is LevelBoundary)
+            {
+                SoundEffects.BarrelBounce.Play(0.75f, 0.0f, 0.0f);
+            }
+
+            if (collision.Collider.AttachedGameEntity is Paddle)
+            {
                 Paddle paddle = (Paddle)(collision.Collider.AttachedGameEntity);
                 if (donkeyKong.Transform.Location.X < paddle.Transform.Location.X)
                 {
@@ -46,17 +55,22 @@ namespace Mabv.Breakout.Behaviors
                 }
                 else
                 {
+                    float horizontalScale = 0.5f + Math.Abs( (collision.ReactingCollider.Centroid.X - collision.Collider.Centroid.X) / (collision.Collider.Width / 2) );
+
                     if (collision.Collider.Centroid.X > collision.ReactingCollider.Centroid.X && donkeyKong.IsMovingRight())
                     {
+                        //donkeyKong.Bounce(true, true, horizontalScale, 1.0f);
                         donkeyKong.Bounce(true, true);
                     }
                     else if (collision.Collider.Centroid.X < collision.ReactingCollider.Centroid.X && donkeyKong.IsMovingLeft())
                     {
+                        //donkeyKong.Bounce(true, true, horizontalScale, 1.0f);
                         donkeyKong.Bounce(true, true);
                     }
                     else
                     {
                         //donkeyKong.PaddleBounce(0, -1);
+                        //donkeyKong.Bounce(false, true, horizontalScale, 1.0f);
                         donkeyKong.Bounce(false, true);
                     }
                 }

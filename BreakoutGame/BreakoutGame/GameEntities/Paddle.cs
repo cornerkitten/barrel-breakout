@@ -21,6 +21,10 @@ namespace Mabv.Breakout.GameEntities
         private BreakoutGame game;
         private IBehavior behavior;
         private Vector2 spriteOrigin;
+        private int wobbleCounter;
+        private int wobbleEnd;
+        private bool isWobbling;
+        private Vector2 wobbleOffset;
 
         public Paddle(BreakoutGame game, Vector2 location)
         {
@@ -32,17 +36,42 @@ namespace Mabv.Breakout.GameEntities
             this.spriteOrigin = new Vector2(0, -this.sprite.Height * .75f);
             this.collider = new BoxCollider(this.sprite.Width, (int)(this.sprite.Height * .75f), this.physics, this.behavior, this);
             this.game.CollisionController.AddCollider(this.collider);
+
+            this.wobbleCounter = 0;
+            this.wobbleEnd = 8;
+            this.isWobbling = false;
+            this.wobbleOffset = new Vector2();
         }
 
         public void Update()
         {
             physics.Update();
             sprite.Update();
+
+            if (isWobbling)
+            {
+                wobbleCounter++;
+                
+                if (wobbleCounter < wobbleEnd / 2)
+                {
+                    wobbleOffset.Y += 1.5f;
+                }
+                else if (wobbleCounter < wobbleEnd)
+                {
+                    wobbleOffset.Y -= 1.5f;
+                }
+                else
+                {
+                    wobbleOffset = Vector2.Zero;
+                    isWobbling = false;
+                    wobbleCounter = 0;
+                }
+            }
         }
         
         public void Draw(SpriteBatch spriteBatch)
         {
-            sprite.Draw(spriteBatch, transform.Location + spriteOrigin);
+            sprite.Draw(spriteBatch, transform.Location + spriteOrigin + wobbleOffset);
         }
 
         public void MoveLeft()
@@ -80,6 +109,11 @@ namespace Mabv.Breakout.GameEntities
         public bool IsMovingRight()
         {
             return (this.physics.Velocity.X > 0);
+        }
+
+        public void Wobble()
+        {
+            isWobbling = true;
         }
     }
 }

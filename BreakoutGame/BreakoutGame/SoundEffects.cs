@@ -13,11 +13,14 @@ namespace Mabv.Breakout
         private static SoundEffect barrelBreak;
         public static SoundEffect CollectBananaBunch { get { return collectBananaBunch; } }
         private static SoundEffect collectBananaBunch;
+        public static SoundEffect BarrelBounce { get { return barrelBounce; } }
+        private static SoundEffect barrelBounce;
 
         public static void LoadContent(ContentManager content)
         {
             barrelBreak = content.Load<SoundEffect>("sfx/dkc-barrel-blast-barrel");
             collectBananaBunch = content.Load<SoundEffect>("sfx/dkc2-collect-banana-bunch");
+            barrelBounce = content.Load<SoundEffect>("sfx/dkc-barrel-bounce");
         }
     }
 }
