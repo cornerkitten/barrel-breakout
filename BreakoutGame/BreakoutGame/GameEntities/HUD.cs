@@ -29,7 +29,7 @@ namespace Mabv.Breakout.GameEntities
             this.nextDisplayUpdateThreshold = 3;
             this.visibleScoreLocation = new Vector2(100 + 16, 600 - 48);
             this.hiddenScoreLocation = new Vector2(100 + 16, 600 + 8);
-            this.isBecomingVisible = false;
+            this.isBecomingVisible = true;
             this.isBecomingHidden = false;
             this.hideCounter = 0;
             this.displayedScore = this.score;
