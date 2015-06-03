@@ -81,56 +81,6 @@ namespace Mabv.Breakout.GameEntities
             physics.Velocity = newVelocityDirection * newVelocityMagnitude;
         }
 
-        /*
-        public void PaddleBounce(float horizontalScalar, float verticalScalar)
-        {
-            Vector2 newVelocity = physics.Velocity;
-            if (horizontalScalar != 0)
-            {
-                newVelocity.X *= horizontalScalar;
-            }
-            
-            if (verticalScalar != 0)
-            {
-                newVelocity.Y *= verticalScalar;
-            }
-
-            physics.Velocity = newVelocity;
-        }
-         */
-
-        /*
-        public void PaddleBounce(int direction)
-        {
-            Console.WriteLine("DonkeyKong.PaddleBounce direction = " + direction);
-            float velocityX = 0;
-
-            if (physics.Velocity.X < 0 && direction < 0)
-            {
-                velocityX = physics.Velocity.X * 1.2f;
-            }
-            else if (physics.Velocity.X > 0 && direction > 0)
-            {
-                velocityX = physics.Velocity.X * 1.2f;
-            }
-            else
-            {
-                velocityX = physics.Velocity.X;
-            }
-
-            if (velocityX < -10)
-            {
-                velocityX = -10;
-            }
-            if (velocityX > 10)
-            {
-                velocityX = 10;
-            }
-
-            physics.Velocity = new Vector2(velocityX, -1 * physics.Velocity.Y);
-        }
-         */
-
         public bool IsMovingLeft()
         {
             return (physics.Velocity.X < 0);

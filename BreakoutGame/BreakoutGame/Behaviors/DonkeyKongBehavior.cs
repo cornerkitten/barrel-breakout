@@ -39,60 +39,43 @@ namespace Mabv.Breakout.Behaviors
                 
                 if (collision.Overlap.X != 0 && collision.Overlap.Y != 0)
                 {
-                    //donkeyKong.PaddleBounce(-1, -1);
-                    donkeyKong.Bounce(true, true);
+                    donkeyKong.Bounce(-1, -1);
                 }
                 else if (collision.Overlap.X != 0)
                 {
-                    //donkeyKong.PaddleBounce(-1, 0);
-                    donkeyKong.Bounce(true, false);
+                    donkeyKong.Bounce(-1, 1);
                 }
                 else
                 {
-                    //float horizontalScale = 0.5f + Math.Abs( (collision.ReactingCollider.Centroid.X - collision.Collider.Centroid.X) / (collision.Collider.Width / 2) );
-
-                    int partition = 0;
                     ICollider dkCollider = collision.ReactingCollider;
                     ICollider paddleCollider = collision.Collider;
+                    float xScale = 1;
+                    float yScale = -1;
 
-                    //if (dkCollider.Centroid.X < paddleCollider.Centroid.X - paddleCollider.Width / 2)
+                    if (paddleCollider.Centroid.X > dkCollider.Centroid.X && donkeyKong.IsMovingRight())
+                    {
+                        xScale *= -1;
+                    }
+                    else if (paddleCollider.Centroid.X < dkCollider.Centroid.X && donkeyKong.IsMovingLeft())
+                    {
+                        xScale *= -1;
+                    }
 
-                    if (collision.Collider.Centroid.X > collision.ReactingCollider.Centroid.X && donkeyKong.IsMovingRight())
+                    if (dkCollider.Centroid.X > paddleCollider.Centroid.X - paddleCollider.Width / 2 && dkCollider.Centroid.X < paddleCollider.Centroid.X + paddleCollider.Width / 2)
                     {
-                        donkeyKong.Bounce(-1, -1);
-                    }
-                    else if (collision.Collider.Centroid.X < collision.ReactingCollider.Centroid.X && donkeyKong.IsMovingLeft())
-                    {
-                        donkeyKong.Bounce(-1, -1);
-                    }
-                    else if (dkCollider.Centroid.X > paddleCollider.Centroid.X - paddleCollider.Width / 2 && dkCollider.Centroid.X < paddleCollider.Centroid.X + paddleCollider.Width / 2)
-                    {
-                        /*
-                        int randomNumber = random.Next(0, 2);
-                        if (randomNumber == 0)
-                        {
-                            donkeyKong.Bounce(0.5f, -1);
-                        }
-                        else
-                        {
-                            donkeyKong.Bounce(2.0f, -1);
-                        }
-                         */
                         Vector2 dkVelocity = dkCollider.Physics.Velocity;
- 
+
                         if (Math.Abs(dkVelocity.X) > Math.Abs(dkVelocity.Y))
                         {
-                            donkeyKong.Bounce(0.5f, -1);
+                            xScale *= 0.5f;
                         }
                         else
                         {
-                            donkeyKong.Bounce(2.0f, -1);
+                            xScale *= 2.0f;
                         }
                     }
-                    else
-                    {
-                        donkeyKong.Bounce(1, -1);
-                    }
+
+                    donkeyKong.Bounce(xScale, yScale);
                 }
             }
             else if (!(collision.Collider.AttachedGameEntity is BananaBunch))
