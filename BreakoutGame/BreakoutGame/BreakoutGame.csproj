@@ -85,11 +85,13 @@
     <Compile Include="GameEntities\JungleBackground.cs" />
     <Compile Include="GameEntities\Paddle.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Levels\ILevel.cs" />
     <Compile Include="KeyboardInputController.cs" />
     <Compile Include="Commands\MoveDownCommand.cs" />
     <Compile Include="Commands\MoveLeftCommand.cs" />
     <Compile Include="Commands\MoveRightCommand.cs" />
     <Compile Include="Commands\MoveUpCommand.cs" />
+    <Compile Include="Levels\LevelOne.cs" />
     <Compile Include="Songs.cs" />
     <Compile Include="Physics\RigidBodyPhysics.cs" />
     <Compile Include="Commands\QuitGameCommand.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Commands\StopMovingCommand.cs" />
     <Compile Include="Textures.cs" />
     <Compile Include="Transform.cs" />
+    <Compile Include="View.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

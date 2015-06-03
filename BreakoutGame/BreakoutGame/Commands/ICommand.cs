@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mabv.Breakout.Commands
 {
-    interface ICommand
+    public interface ICommand
     {
         void Execute();
     }

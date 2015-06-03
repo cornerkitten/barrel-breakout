@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Mabv.Breakout
 {
-    class KeyboardInputController : IController
+    public class KeyboardInputController : IController
     {
         private Dictionary<Keys, ICommand> inputMappingsKeyDown;
         private Dictionary<Keys, ICommand> inputMappingsKeyUp;

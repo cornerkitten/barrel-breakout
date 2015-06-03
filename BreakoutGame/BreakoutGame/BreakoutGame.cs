@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Mabv.Breakout.Collisions;
 using Mabv.Breakout.GameEntities;
 using Mabv.Breakout.Commands;
+using Mabv.Breakout.Levels;
 
 namespace Mabv.Breakout
 {
@@ -32,7 +33,8 @@ namespace Mabv.Breakout
         private GameEntityController gameEntityController;
         private KeyboardInputController keyboardInputController;
         private GameData gameData;
-        private Hud hud;
+        private View view;
+        private ILevel level;
         
         public BreakoutGame()
         {
@@ -45,14 +47,15 @@ namespace Mabv.Breakout
             gameEntityController = new GameEntityController();
             keyboardInputController = new KeyboardInputController();
             gameData = new GameData();
+            view = new View(WindowWidth, WindowHeight);
         }
 
         public void IncreaseScore()
         {
             int scoreIncrement = 10;
             gameData.Score += scoreIncrement;
-            hud.IncreaseScore(scoreIncrement);
-
+            
+            level.Hud.IncreaseScore(scoreIncrement);
         }
 
         protected override void Initialize()
@@ -71,10 +74,8 @@ namespace Mabv.Breakout
             Songs.LoadContent(Content);
             Fonts.LoadContent(Content);
 
-            MediaPlayer.Play(Songs.IslandSwing);
-            MediaPlayer.IsRepeating = true;
-
-            CreateGameEntities();
+            level = new LevelOne(this, view, gameEntityController, keyboardInputController);
+            level.Start();
         }
 
         protected override void UnloadContent()
@@ -98,58 +99,6 @@ namespace Mabv.Breakout
             gameEntityController.Draw(spriteBatch);
 
             base.Draw(gameTime);
-        }
-
-        private void CreateGameEntities()
-        {
-            gameEntityController.AddGameEntity(new JungleBackground());
-
-            for (int i = 105 + 16; i < WindowWidth - 105 - 32; i += 64)
-            {
-                for (int j = 32; j < WindowHeight / 2 - 64; j += 64)
-                {
-                    gameEntityController.AddGameEntity(new BananaBunch(this, new Vector2(i + 8, j + 8)));
-
-                    gameEntityController.AddGameEntity(new Barrel(this, new Vector2(i, j)));
-                }
-            }
-            
-            Paddle paddle = new Paddle(this, new Vector2(WindowWidth / 2, WindowHeight - 64));
-            gameEntityController.AddGameEntity(paddle);
-            gameEntityController.AddGameEntity(new DonkeyKong(this, new Vector2(WindowWidth / 2, WindowHeight / 2)));
-            gameEntityController.AddGameEntity(new LevelBoundary(this));
-
-            hud = new Hud(this);
-            gameEntityController.AddGameEntity(hud);
-
-            RegisterKeyboardCommands(paddle);
-        }
-
-        private void RegisterKeyboardCommands(Paddle paddle)
-        {
-            ICommand moveLeftCommand = new MoveLeftCommand(paddle);
-            ICommand moveRightCommand = new MoveRightCommand(paddle);
-            ICommand stopMovingCommand = new StopMovingCommand(paddle);
-            ICommand moveUpCommand = new MoveUpCommand(paddle);
-            ICommand moveDownCommand = new MoveDownCommand(paddle);
-            keyboardInputController.RegisterCommandKeyDown(Keys.Left, moveLeftCommand);
-            keyboardInputController.RegisterCommandKeyDown(Keys.A, moveLeftCommand);
-            keyboardInputController.RegisterCommandKeyDown(Keys.Right, moveRightCommand);
-            keyboardInputController.RegisterCommandKeyDown(Keys.D, moveRightCommand);
-            keyboardInputController.RegisterCommandKeyUp(Keys.Left, stopMovingCommand);
-            keyboardInputController.RegisterCommandKeyUp(Keys.A, stopMovingCommand);
-            keyboardInputController.RegisterCommandKeyUp(Keys.Right, stopMovingCommand);
-            keyboardInputController.RegisterCommandKeyUp(Keys.D, stopMovingCommand);
-            // DEBUG
-            //keyboardInputController.RegisterCommandKeyDown(Keys.Space, stopMovingCommand);
-            //keyboardInputController.RegisterCommandKeyDown(Keys.S, stopMovingCommand);
-            //keyboardInputController.RegisterCommandKeyDown(Keys.Down, moveDownCommand);
-            //keyboardInputController.RegisterCommandKeyDown(Keys.S, moveDownCommand);
-            //keyboardInputController.RegisterCommandKeyDown(Keys.Up, moveUpCommand);
-            //keyboardInputController.RegisterCommandKeyDown(Keys.W, moveUpCommand);
-
-            ICommand quitGameCommand = new QuitGameCommand(this);
-            keyboardInputController.RegisterCommandKeyDown(Keys.Q, quitGameCommand);
         }
     }
 }
