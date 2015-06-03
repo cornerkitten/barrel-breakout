@@ -64,7 +64,7 @@ namespace Mabv.Breakout.GameEntities
             physics.Velocity = newVelocity;
         }
 
-        public void Bounce(bool isHorizontalBounce, bool isVerticalBounce, float horizontalScale, float verticalScale)
+        public void Bounce(float horizontalScale, float verticalScale)
         {
             if (horizontalScale != 1.0f || verticalScale != 1.0f)
             {
@@ -73,22 +73,15 @@ namespace Mabv.Breakout.GameEntities
 
             float newVelocityMagnitude = physics.Velocity.Length();
             Vector2 newVelocityDirection = physics.Velocity;
-            if (isHorizontalBounce)
-            {
-                newVelocityDirection.X *= -1f;
-            }
+
             newVelocityDirection.X *= horizontalScale;
-            
-            if (isVerticalBounce)
-            {
-                newVelocityDirection.Y *= -1f;
-            }
             newVelocityDirection.Y *= verticalScale;
             newVelocityDirection.Normalize();
 
             physics.Velocity = newVelocityDirection * newVelocityMagnitude;
         }
 
+        /*
         public void PaddleBounce(float horizontalScalar, float verticalScalar)
         {
             Vector2 newVelocity = physics.Velocity;
@@ -104,7 +97,9 @@ namespace Mabv.Breakout.GameEntities
 
             physics.Velocity = newVelocity;
         }
+         */
 
+        /*
         public void PaddleBounce(int direction)
         {
             Console.WriteLine("DonkeyKong.PaddleBounce direction = " + direction);
@@ -134,6 +129,7 @@ namespace Mabv.Breakout.GameEntities
 
             physics.Velocity = new Vector2(velocityX, -1 * physics.Velocity.Y);
         }
+         */
 
         public bool IsMovingLeft()
         {

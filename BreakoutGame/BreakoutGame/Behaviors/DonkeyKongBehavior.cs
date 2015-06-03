@@ -1,5 +1,7 @@
 ﻿using Mabv.Breakout.Collisions;
 using Mabv.Breakout.GameEntities;
+using Mabv.Breakout.Physics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,8 @@ namespace Mabv.Breakout.Behaviors
 {
     public class DonkeyKongBehavior : Behavior
     {
-        DonkeyKong donkeyKong;
+        private static Random random = new Random();
+        private DonkeyKong donkeyKong;
 
         public DonkeyKongBehavior(DonkeyKong donkeyKong)
         {
@@ -33,16 +36,7 @@ namespace Mabv.Breakout.Behaviors
             if (collision.Collider.AttachedGameEntity is Paddle)
             {
                 Paddle paddle = (Paddle)(collision.Collider.AttachedGameEntity);
-                if (donkeyKong.Transform.Location.X < paddle.Transform.Location.X)
-                {
-                    //donkeyKong.PaddleBounce(-1);
-                }
-                else
-                {
-                    //donkeyKong.PaddleBounce(1);
-                }
-
-
+                
                 if (collision.Overlap.X != 0 && collision.Overlap.Y != 0)
                 {
                     //donkeyKong.PaddleBounce(-1, -1);
@@ -55,23 +49,49 @@ namespace Mabv.Breakout.Behaviors
                 }
                 else
                 {
-                    float horizontalScale = 0.5f + Math.Abs( (collision.ReactingCollider.Centroid.X - collision.Collider.Centroid.X) / (collision.Collider.Width / 2) );
+                    //float horizontalScale = 0.5f + Math.Abs( (collision.ReactingCollider.Centroid.X - collision.Collider.Centroid.X) / (collision.Collider.Width / 2) );
+
+                    int partition = 0;
+                    ICollider dkCollider = collision.ReactingCollider;
+                    ICollider paddleCollider = collision.Collider;
+
+                    //if (dkCollider.Centroid.X < paddleCollider.Centroid.X - paddleCollider.Width / 2)
 
                     if (collision.Collider.Centroid.X > collision.ReactingCollider.Centroid.X && donkeyKong.IsMovingRight())
                     {
-                        //donkeyKong.Bounce(true, true, horizontalScale, 1.0f);
-                        donkeyKong.Bounce(true, true);
+                        donkeyKong.Bounce(-1, -1);
                     }
                     else if (collision.Collider.Centroid.X < collision.ReactingCollider.Centroid.X && donkeyKong.IsMovingLeft())
                     {
-                        //donkeyKong.Bounce(true, true, horizontalScale, 1.0f);
-                        donkeyKong.Bounce(true, true);
+                        donkeyKong.Bounce(-1, -1);
+                    }
+                    else if (dkCollider.Centroid.X > paddleCollider.Centroid.X - paddleCollider.Width / 2 && dkCollider.Centroid.X < paddleCollider.Centroid.X + paddleCollider.Width / 2)
+                    {
+                        /*
+                        int randomNumber = random.Next(0, 2);
+                        if (randomNumber == 0)
+                        {
+                            donkeyKong.Bounce(0.5f, -1);
+                        }
+                        else
+                        {
+                            donkeyKong.Bounce(2.0f, -1);
+                        }
+                         */
+                        Vector2 dkVelocity = dkCollider.Physics.Velocity;
+ 
+                        if (Math.Abs(dkVelocity.X) > Math.Abs(dkVelocity.Y))
+                        {
+                            donkeyKong.Bounce(0.5f, -1);
+                        }
+                        else
+                        {
+                            donkeyKong.Bounce(2.0f, -1);
+                        }
                     }
                     else
                     {
-                        //donkeyKong.PaddleBounce(0, -1);
-                        //donkeyKong.Bounce(false, true, horizontalScale, 1.0f);
-                        donkeyKong.Bounce(false, true);
+                        donkeyKong.Bounce(1, -1);
                     }
                 }
             }
