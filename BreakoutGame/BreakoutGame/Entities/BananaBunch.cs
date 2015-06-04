@@ -9,28 +9,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mabv.Breakout.GameEntities
+namespace Mabv.Breakout.Entities
 {
-    public class BananaBunch : IGameEntity
+    public class BananaBunch : IEntity
     {
-        private BreakoutGame game;
         private Player player;
+        private EntityController entityController;
+        private CollisionController collisionController;
         private ISprite sprite;
         private ITransform transform;
         private ICollider collider;
         private IPhysics physics;
         private IBehavior behavior;
 
-        public BananaBunch(BreakoutGame game, Player player, Vector2 location)
+        public BananaBunch(Vector2 location, Player player, EntityController entityController, CollisionController collisionController)
         {
-            this.game = game;
-            this.player = player;
             this.transform = new Transform(location);
+            this.player = player;
+            this.entityController = entityController;
+            this.collisionController = collisionController;
             this.sprite = new AnimatedSprite(Textures.BananaBunch, 1, 10, 3, null, false);
             this.physics = new RigidBodyPhysics(this.transform);
             this.behavior = new BananaBunchBehavior(this);
             this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
-            this.game.CollisionController.AddCollider(this.collider);
+            collisionController.AddCollider(this.collider);
         }
 
         public void Update()
@@ -48,8 +50,8 @@ namespace Mabv.Breakout.GameEntities
             SoundEffects.CollectBananaBunch.Play(0.8f, 0.2f, 0.0f);
             player.IncreaseScore();
 
-            game.CollisionController.RemoveCollider(collider);
-            game.GameEntityController.RemoveGameEntity(this);
+            collisionController.RemoveCollider(collider);
+            entityController.RemoveEntity(this);
         }
     }
 }

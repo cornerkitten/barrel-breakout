@@ -1,5 +1,5 @@
 ﻿using Mabv.Breakout.Collisions;
-using Mabv.Breakout.GameEntities;
+using Mabv.Breakout.Entities;
 using Mabv.Breakout.Physics;
 using Microsoft.Xna.Framework;
 using System;

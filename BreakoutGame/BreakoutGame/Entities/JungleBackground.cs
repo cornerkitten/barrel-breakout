@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mabv.Breakout.GameEntities
+namespace Mabv.Breakout.Entities
 {
-    public class JungleBackground : IGameEntity
+    public class JungleBackground : IEntity
     {
         private ISprite sprite;
 

@@ -7,13 +7,13 @@ using System.Text;
 
 namespace Mabv.Breakout
 {
-    public class KeyboardInputController : IController
+    public class KeyboardController : IController
     {
         private Dictionary<Keys, ICommand> inputMappingsKeyDown;
         private Dictionary<Keys, ICommand> inputMappingsKeyUp;
         private Keys[] oldPressedKeys;
 
-        public KeyboardInputController()
+        public KeyboardController()
         {
             this.inputMappingsKeyDown = new Dictionary<Keys, ICommand>();
             this.inputMappingsKeyUp = new Dictionary<Keys, ICommand>();

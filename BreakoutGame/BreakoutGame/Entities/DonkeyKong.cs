@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mabv.Breakout.GameEntities
+namespace Mabv.Breakout.Entities
 {
-    public class DonkeyKong : IGameEntity
+    public class DonkeyKong : IEntity
     {
         public ITransform Transform { get { return transform; } }
         private ISprite sprite;
@@ -20,7 +20,7 @@ namespace Mabv.Breakout.GameEntities
         private ITransform transform;
         private IBehavior behavior;
 
-        public DonkeyKong(BreakoutGame game, Vector2 location)
+        public DonkeyKong(Vector2 location, CollisionController collisionController)
         {
             this.transform = new Transform(location);
             this.physics = new RigidBodyPhysics(this.transform);
@@ -28,7 +28,7 @@ namespace Mabv.Breakout.GameEntities
             this.sprite = new AnimatedSprite(Textures.RotatingDonkeyKong, 1, 16, 2);
             this.behavior = new DonkeyKongBehavior(this);
             this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
-            game.CollisionController.AddCollider(this.collider);
+            collisionController.AddCollider(this.collider);
         }
 
         public void Update()

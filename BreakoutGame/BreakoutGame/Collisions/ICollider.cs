@@ -1,5 +1,5 @@
 ﻿using Mabv.Breakout.Behaviors;
-using Mabv.Breakout.GameEntities;
+using Mabv.Breakout.Entities;
 using Mabv.Breakout.Physics;
 using Microsoft.Xna.Framework;
 using System;
@@ -14,7 +14,7 @@ namespace Mabv.Breakout.Collisions
         // TODO consider treating and naming this as AttachedPhysics, rather than Physics
         IPhysics Physics { get; }
         IBehavior AttachedBehavior { get; }
-        IGameEntity AttachedGameEntity { get; }
+        IEntity AttachedGameEntity { get; }
         // TODO determine if sensible to have this exposed by ICollider
         Vector2 Centroid { get; }
         // TODO determine if sensible to have this exposed by ICollider

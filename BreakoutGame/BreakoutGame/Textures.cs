@@ -9,22 +9,28 @@ namespace Mabv.Breakout
 {
     public static class Textures
     {
-        public static Texture2D RotatingBarrel { get; set; }
-        public static Texture2D RotatingDonkeyKong { get; set; }
-        public static Texture2D SmokeExplosion { get; set; }
-        public static Texture2D PlatformUp { get; set; }
-        public static Texture2D BananaBunch { get; set; }
-        public static Texture2D JungleBackground { get; set; }
+        public static Texture2D RotatingBarrel { get { return rotatingBarrel; } }
+        public static Texture2D RotatingDonkeyKong { get { return rotatingDonkeyKong; } }
+        public static Texture2D SmokeExplosion { get { return smokeExplosion; } }
+        public static Texture2D PlatformUp { get { return platformUp; } }
+        public static Texture2D BananaBunch { get { return bananaBunch; } }
+        public static Texture2D JungleBackground { get { return jungleBackground; } }
+        private static Texture2D rotatingBarrel;
+        private static Texture2D rotatingDonkeyKong;
+        private static Texture2D smokeExplosion;
+        private static Texture2D platformUp;
+        private static Texture2D bananaBunch;
+        private static Texture2D jungleBackground;
 
         public static void LoadContent(ContentManager content)
         {
-            RotatingBarrel = content.Load<Texture2D>("textures/dkc-barrel-rotation");
-            RotatingDonkeyKong = content.Load<Texture2D>("textures/dkc-donkey-kong-rotation-bordered");
-            SmokeExplosion = content.Load<Texture2D>("textures/dkc-smoke-explosion");
+            rotatingBarrel = content.Load<Texture2D>("textures/dkc-barrel-rotation");
+            rotatingDonkeyKong = content.Load<Texture2D>("textures/dkc-donkey-kong-rotation-bordered");
+            smokeExplosion = content.Load<Texture2D>("textures/dkc-smoke-explosion");
             //PlatformUp = content.Load<Texture2D>("textures/dkc-platform-up");
-            PlatformUp = content.Load<Texture2D>("textures/barrel-paddle");
-            BananaBunch = content.Load<Texture2D>("textures/dkc-banana-bunch");
-            JungleBackground = content.Load<Texture2D>("textures/backgrounds/dkc-jungle");
+            platformUp = content.Load<Texture2D>("textures/barrel-paddle");
+            bananaBunch = content.Load<Texture2D>("textures/dkc-banana-bunch");
+            jungleBackground = content.Load<Texture2D>("textures/backgrounds/dkc-jungle");
         }
     }
 }

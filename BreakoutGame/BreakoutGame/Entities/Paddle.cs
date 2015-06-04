@@ -9,16 +9,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mabv.Breakout.GameEntities
+namespace Mabv.Breakout.Entities
 {
-    public class Paddle : IGameEntity
+    public class Paddle : IEntity
     {
         public ITransform Transform { get { return transform; } }
         private IPhysics physics;
         private ISprite sprite;
         private ICollider collider;
         private ITransform transform;
-        private BreakoutGame game;
         private IBehavior behavior;
         private Vector2 spriteOrigin;
         private int wobbleCounter;
@@ -26,16 +25,15 @@ namespace Mabv.Breakout.GameEntities
         private bool isWobbling;
         private Vector2 wobbleOffset;
 
-        public Paddle(BreakoutGame game, Vector2 location)
+        public Paddle(Vector2 location, CollisionController collisionController)
         {
-            this.game = game;
             this.transform = new Transform(location);
             this.physics = new RigidBodyPhysics(this.transform);
             this.sprite = new AnimatedSprite(Textures.PlatformUp, 1, 1);
             this.behavior = new PaddleBehavior(this);
             this.spriteOrigin = new Vector2(0, -this.sprite.Height * .75f);
             this.collider = new BoxCollider(this.sprite.Width, (int)(this.sprite.Height * .75f), this.physics, this.behavior, this);
-            this.game.CollisionController.AddCollider(this.collider);
+            collisionController.AddCollider(this.collider);
 
             this.wobbleCounter = 0;
             this.wobbleEnd = 8;

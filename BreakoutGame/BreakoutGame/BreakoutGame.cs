@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Mabv.Breakout.Collisions;
-using Mabv.Breakout.GameEntities;
+using Mabv.Breakout.Entities;
 using Mabv.Breakout.Commands;
 using Mabv.Breakout.Levels;
 
@@ -19,19 +19,11 @@ namespace Mabv.Breakout
     {
         private const int WindowWidth = 800;
         private const int WindowHeight = 600;
-        public CollisionController CollisionController
-        {
-            get { return (CollisionController)collisionController; }
-        }
-        public GameEntityController GameEntityController
-        {
-            get { return gameEntityController; }
-        }
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private IController collisionController;
-        private GameEntityController gameEntityController;
-        private KeyboardInputController keyboardInputController;
+        private CollisionController collisionController;
+        private EntityController entityController;
+        private KeyboardController keyboardController;
         private View view;
         private Player player;
         private ILevel level;
@@ -39,8 +31,8 @@ namespace Mabv.Breakout
         public BreakoutGame()
         {
             this.collisionController = new CollisionController();
-            this.gameEntityController = new GameEntityController();
-            this.keyboardInputController = new KeyboardInputController();
+            this.entityController = new EntityController();
+            this.keyboardController = new KeyboardController();
             this.view = new View(BreakoutGame.WindowWidth, BreakoutGame.WindowHeight);
             this.player = new Player();
 
@@ -69,7 +61,7 @@ namespace Mabv.Breakout
             Songs.LoadContent(Content);
             Fonts.LoadContent(Content);
 
-            level = new LevelOne(this, view, player, gameEntityController, keyboardInputController);
+            level = new LevelOne(this, view, player, entityController, collisionController, keyboardController);
             level.Start();
         }
 
@@ -80,8 +72,8 @@ namespace Mabv.Breakout
 
         protected override void Update(GameTime gameTime)
         {
-            keyboardInputController.Update();
-            gameEntityController.Update();
+            keyboardController.Update();
+            entityController.Update();
             collisionController.Update();
 
             base.Update(gameTime);
@@ -91,7 +83,7 @@ namespace Mabv.Breakout
         {
             GraphicsDevice.Clear(Color.Green);
 
-            gameEntityController.Draw(spriteBatch);
+            entityController.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }

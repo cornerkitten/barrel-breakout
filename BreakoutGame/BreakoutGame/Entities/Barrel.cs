@@ -9,26 +9,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mabv.Breakout.GameEntities
+namespace Mabv.Breakout.Entities
 {
-    public class Barrel : IGameEntity
+    public class Barrel : IEntity
     {
         private IPhysics physics;
         private ISprite sprite;
         private ICollider collider;
         private ITransform transform;
         private IBehavior behavior;
-        private BreakoutGame game;
+        private EntityController entityController;
+        private CollisionController collisionController;
 
-        public Barrel(BreakoutGame game, Vector2 location)
+        public Barrel(Vector2 location, EntityController entityController, CollisionController collisionController)
         {
-            this.game = game;
             this.transform = new Transform(location);
+            this.entityController = entityController;
+            this.collisionController = collisionController;
             this.physics = new RigidBodyPhysics(this.transform);
             this.behavior = new BarrelBehavior(this);
             this.sprite = new AnimatedSprite(Textures.RotatingBarrel, 1, 5, 4, null, true);
             this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
-            this.game.CollisionController.AddCollider(this.collider);
+            this.collisionController.AddCollider(this.collider);
         }
 
         public void Update()
@@ -47,12 +49,12 @@ namespace Mabv.Breakout.GameEntities
             sprite = new AnimatedSprite(Textures.SmokeExplosion, 1, 8, 2, behavior);
             SoundEffects.BarrelBreak.Play();
             //game.IncreaseScore();
-            game.CollisionController.RemoveCollider(collider);
+            collisionController.RemoveCollider(collider);
         }
 
         public void Destroy()
         {
-            game.GameEntityController.RemoveGameEntity(this);
+            entityController.RemoveEntity(this);
         }
     }
 }

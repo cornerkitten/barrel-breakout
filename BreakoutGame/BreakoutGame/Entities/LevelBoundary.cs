@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mabv.Breakout.GameEntities
+namespace Mabv.Breakout.Entities
 {
-    public class LevelBoundary : IGameEntity
+    public class LevelBoundary : IEntity
     {
-        public LevelBoundary(BreakoutGame game)
+        public LevelBoundary(CollisionController collisionController)
         {
             int levelWidth = 800;
             int levelHeight = 600;
@@ -27,10 +27,10 @@ namespace Mabv.Breakout.GameEntities
             ICollider leftWallCollider = new BoxCollider(boundarySize, levelHeight + 2 * boundarySize, leftWallPhysics, null, this);
             ICollider rightWallCollider = new BoxCollider(boundarySize, levelHeight + 2 * boundarySize, rightWallPhysics, null, this);
 
-            game.CollisionController.AddCollider(topWallCollider);
-            game.CollisionController.AddCollider(bottomWallCollider);
-            game.CollisionController.AddCollider(leftWallCollider);
-            game.CollisionController.AddCollider(rightWallCollider);
+            collisionController.AddCollider(topWallCollider);
+            collisionController.AddCollider(bottomWallCollider);
+            collisionController.AddCollider(leftWallCollider);
+            collisionController.AddCollider(rightWallCollider);
         }
 
         public void Update()

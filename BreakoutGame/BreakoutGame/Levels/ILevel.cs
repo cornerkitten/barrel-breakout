@@ -1,4 +1,4 @@
-﻿using Mabv.Breakout.GameEntities;
+﻿using Mabv.Breakout.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
