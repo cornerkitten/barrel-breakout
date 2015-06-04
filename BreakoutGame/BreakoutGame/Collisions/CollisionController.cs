@@ -46,11 +46,7 @@ namespace Mabv.Breakout.Collisions
 
             colliders = newColliders;
 
-            while (removalQueue.Count > 0)
-            {
-                ICollider collider = removalQueue.Dequeue();
-                colliders.Remove(collider);
-            }
+            Flush();
         }
 
         public void AddCollider(ICollider collider)
@@ -61,6 +57,15 @@ namespace Mabv.Breakout.Collisions
         public void RemoveCollider(ICollider collider)
         {
             removalQueue.Enqueue(collider);
+        }
+
+        public void Flush()
+        {
+            while (removalQueue.Count > 0)
+            {
+                ICollider collider = removalQueue.Dequeue();
+                colliders.Remove(collider);
+            }
         }
     }
 }

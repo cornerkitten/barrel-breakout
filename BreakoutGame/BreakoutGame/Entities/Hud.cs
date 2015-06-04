@@ -20,9 +20,9 @@ namespace Mabv.Breakout.Entities
         private bool isBecomingHidden;
         private int hideCounter;
 
-        public Hud()
+        public Hud(int initialScore)
         {
-            this.score = 0;
+            this.score = initialScore;
             this.displayUpdateCounter = 0;
             this.nextDisplayUpdateThreshold = 3;
             this.visibleScoreLocation = new Vector2(100 + 16, 600 - 48);
@@ -91,6 +91,11 @@ namespace Mabv.Breakout.Entities
             spriteBatch.Begin();
             spriteBatch.DrawString(Fonts.Banana, displayedScore.ToString(), scoreLocation, Color.White);
             spriteBatch.End();
+        }
+
+        public void Destroy()
+        {
+            // no-op
         }
 
         public void IncreaseScore(int scoreIncrement)

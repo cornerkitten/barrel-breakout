@@ -20,7 +20,7 @@ namespace Mabv.Breakout.Behaviors
         {
             if (collision.Collider.AttachedGameEntity is DonkeyKong)
             {
-                bananaBunch.Destroy();
+                bananaBunch.BecomeCollected();
 
                 base.OnCollisionEnter(collision);
             }

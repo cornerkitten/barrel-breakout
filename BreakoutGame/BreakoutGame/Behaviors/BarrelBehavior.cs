@@ -10,10 +10,12 @@ namespace Mabv.Breakout.Behaviors
     public class BarrelBehavior : Behavior
     {
         private Barrel barrel;
+        private EntityController entityController;
 
-        public BarrelBehavior(Barrel barrel)
+        public BarrelBehavior(Barrel barrel, EntityController entityController)
         {
             this.barrel = barrel;
+            this.entityController = entityController;
         }
 
         override public void OnCollisionEnter(ICollision collision)
@@ -30,6 +32,7 @@ namespace Mabv.Breakout.Behaviors
         {
             Console.WriteLine("BarrelBehavior.OnAnimationEnd");
             barrel.Destroy();
+            entityController.RemoveEntity(barrel);
 
             base.OnAnimationEnd();
         }

@@ -72,9 +72,7 @@ namespace Mabv.Breakout
 
         protected override void Update(GameTime gameTime)
         {
-            keyboardController.Update();
-            entityController.Update();
-            collisionController.Update();
+            level.Update();
 
             base.Update(gameTime);
         }
@@ -83,7 +81,7 @@ namespace Mabv.Breakout
         {
             GraphicsDevice.Clear(Color.Green);
 
-            entityController.Draw(spriteBatch);
+            level.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }

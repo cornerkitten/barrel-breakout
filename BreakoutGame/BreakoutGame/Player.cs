@@ -8,8 +8,9 @@ namespace Mabv.Breakout
 {
     public class Player
     {
-        private const int ScoreIncrement = 10;
+        public int Score { get { return score; } }
         public Hud Hud { get; set; }
+        private const int ScoreIncrement = 10;
         private int score;
 
         public Player()

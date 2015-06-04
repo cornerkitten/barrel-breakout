@@ -47,10 +47,14 @@ namespace Mabv.Breakout.Entities
 
         public void Destroy()
         {
+            collisionController.RemoveCollider(collider);
+        }
+
+        public void BecomeCollected()
+        {
             SoundEffects.CollectBananaBunch.Play(0.8f, 0.2f, 0.0f);
             player.IncreaseScore();
-
-            collisionController.RemoveCollider(collider);
+            Destroy();
             entityController.RemoveEntity(this);
         }
     }

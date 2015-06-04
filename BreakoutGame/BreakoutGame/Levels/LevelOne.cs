@@ -2,6 +2,7 @@
 using Mabv.Breakout.Commands;
 using Mabv.Breakout.Entities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
@@ -19,6 +20,7 @@ namespace Mabv.Breakout.Levels
         private EntityController entityController;
         private CollisionController collisionController;
         private KeyboardController keyboardController;
+        private bool hasRestartRequest;
         private Paddle paddle;
 
         public LevelOne(BreakoutGame game, View view, Player player, EntityController entityController, CollisionController collisionController, KeyboardController keyboardController)
@@ -29,6 +31,7 @@ namespace Mabv.Breakout.Levels
             this.entityController = entityController;
             this.collisionController = collisionController;
             this.keyboardController = keyboardController;
+            this.hasRestartRequest = false;
         }
 
         public void Start()
@@ -36,8 +39,43 @@ namespace Mabv.Breakout.Levels
             populate();
             registerControls();
 
-            MediaPlayer.Play(Songs.IslandSwing);
-            MediaPlayer.IsRepeating = true;
+            if (MediaPlayer.State != MediaState.Playing)
+            {
+                MediaPlayer.Play(Songs.IslandSwing);
+                MediaPlayer.IsRepeating = true;
+            }
+        }
+
+        public void Quit()
+        {
+            deregisterControls();
+            unpopulate();
+        }
+
+        public void Restart()
+        {
+            hasRestartRequest = true;
+        }
+
+        public void Update()
+        {
+            if (hasRestartRequest)
+            {
+                Quit();
+                
+                hasRestartRequest = false;
+
+                Start();
+            }
+
+            keyboardController.Update();
+            entityController.Update();
+            collisionController.Update();
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            entityController.Draw(spriteBatch);
         }
 
         private void populate()
@@ -59,9 +97,23 @@ namespace Mabv.Breakout.Levels
             entityController.AddEntity(new DonkeyKong(new Vector2(view.Width / 2, view.Height / 2), collisionController));
             entityController.AddEntity(new LevelBoundary(collisionController));
 
-            Hud hud = new Hud();
+            Hud hud = new Hud(player.Score);
             entityController.AddEntity(hud);
             player.Hud = hud;
+        }
+
+        private void unpopulate()
+        {
+            player.Hud = null;
+
+            foreach(IEntity entity in entityController.Entities)
+            {
+                entity.Destroy();
+            }
+            entityController.RemoveAll();
+
+            collisionController.Flush();
+            entityController.Flush();
         }
 
         private void registerControls()
@@ -88,7 +140,16 @@ namespace Mabv.Breakout.Levels
             //keyboardInputController.RegisterCommandKeyDown(Keys.W, moveUpCommand);
 
             ICommand quitGameCommand = new QuitGameCommand(game);
+            ICommand resetLevelCommand = new RestartLevelCommand(this);
+            ICommand quitLevelCommand = new QuitLevelCommand(this);
             keyboardController.RegisterCommandKeyDown(Keys.Q, quitGameCommand);
+            keyboardController.RegisterCommandKeyDown(Keys.R, resetLevelCommand);
+            keyboardController.RegisterCommandKeyDown(Keys.T, quitLevelCommand);
+        }
+
+        private void deregisterControls()
+        {
+            keyboardController.DeregisterAllCommands();
         }
     }
 }

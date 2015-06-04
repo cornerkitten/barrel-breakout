@@ -77,6 +77,8 @@
   <ItemGroup>
     <Compile Include="Behaviors\BananaBunchBehavior.cs" />
     <Compile Include="Behaviors\PaddleBehavior.cs" />
+    <Compile Include="Commands\QuitLevelCommand.cs" />
+    <Compile Include="Commands\RestartLevelCommand.cs" />
     <Compile Include="Fonts.cs" />
     <Compile Include="Entities\BananaBunch.cs" />
     <Compile Include="Entities\Hud.cs" />

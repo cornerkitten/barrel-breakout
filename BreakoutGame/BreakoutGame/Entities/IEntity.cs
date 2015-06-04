@@ -10,5 +10,6 @@ namespace Mabv.Breakout.Entities
     {
         void Update();
         void Draw(SpriteBatch spriteBatch);
+        void Destroy();
     }
 }

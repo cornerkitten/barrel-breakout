@@ -14,10 +14,11 @@ namespace Mabv.Breakout.Entities
     public class Paddle : IEntity
     {
         public ITransform Transform { get { return transform; } }
+        private ITransform transform;
+        private CollisionController collisionController;
         private IPhysics physics;
         private ISprite sprite;
         private ICollider collider;
-        private ITransform transform;
         private IBehavior behavior;
         private Vector2 spriteOrigin;
         private int wobbleCounter;
@@ -28,12 +29,13 @@ namespace Mabv.Breakout.Entities
         public Paddle(Vector2 location, CollisionController collisionController)
         {
             this.transform = new Transform(location);
+            this.collisionController = collisionController;
             this.physics = new RigidBodyPhysics(this.transform);
             this.sprite = new AnimatedSprite(Textures.PlatformUp, 1, 1);
             this.behavior = new PaddleBehavior(this);
             this.spriteOrigin = new Vector2(0, -this.sprite.Height * .75f);
             this.collider = new BoxCollider(this.sprite.Width, (int)(this.sprite.Height * .75f), this.physics, this.behavior, this);
-            collisionController.AddCollider(this.collider);
+            this.collisionController.AddCollider(this.collider);
 
             this.wobbleCounter = 0;
             this.wobbleEnd = 8;
@@ -70,6 +72,11 @@ namespace Mabv.Breakout.Entities
         public void Draw(SpriteBatch spriteBatch)
         {
             sprite.Draw(spriteBatch, transform.Location + spriteOrigin + wobbleOffset);
+        }
+
+        public void Destroy()
+        {
+            collisionController.RemoveCollider(collider);
         }
 
         public void MoveLeft()

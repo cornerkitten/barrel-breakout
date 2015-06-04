@@ -30,6 +30,12 @@ namespace Mabv.Breakout
             inputMappingsKeyUp.Add(key, command);
         }
 
+        public void DeregisterAllCommands()
+        {
+            inputMappingsKeyDown.Clear();
+            inputMappingsKeyUp.Clear();
+        }
+
         public void Update()
         {
             Keys[] newPressedKeys = Keyboard.GetState().GetPressedKeys();

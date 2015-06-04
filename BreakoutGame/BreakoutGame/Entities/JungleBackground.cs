@@ -26,5 +26,10 @@ namespace Mabv.Breakout.Entities
         {
             this.sprite.Draw(spriteBatch, Vector2.Zero);
         }
+
+        public void Destroy()
+        {
+            // no-op
+        }
     }
 }

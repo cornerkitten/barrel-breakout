@@ -18,16 +18,14 @@ namespace Mabv.Breakout.Entities
         private ICollider collider;
         private ITransform transform;
         private IBehavior behavior;
-        private EntityController entityController;
         private CollisionController collisionController;
 
         public Barrel(Vector2 location, EntityController entityController, CollisionController collisionController)
         {
             this.transform = new Transform(location);
-            this.entityController = entityController;
             this.collisionController = collisionController;
             this.physics = new RigidBodyPhysics(this.transform);
-            this.behavior = new BarrelBehavior(this);
+            this.behavior = new BarrelBehavior(this, entityController);
             this.sprite = new AnimatedSprite(Textures.RotatingBarrel, 1, 5, 4, null, true);
             this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
             this.collisionController.AddCollider(this.collider);
@@ -54,7 +52,10 @@ namespace Mabv.Breakout.Entities
 
         public void Destroy()
         {
-            entityController.RemoveEntity(this);
+            if (collider != null)
+            {
+                collisionController.RemoveCollider(collider);
+            }
         }
     }
 }

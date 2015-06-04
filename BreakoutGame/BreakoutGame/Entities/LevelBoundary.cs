@@ -11,8 +11,16 @@ namespace Mabv.Breakout.Entities
 {
     public class LevelBoundary : IEntity
     {
+        private CollisionController collisionController;
+        ICollider topWallCollider;
+        ICollider bottomWallCollider;
+        ICollider leftWallCollider;
+        ICollider rightWallCollider;
+
         public LevelBoundary(CollisionController collisionController)
         {
+            this.collisionController = collisionController;
+
             int levelWidth = 800;
             int levelHeight = 600;
             int boundarySize = 64;
@@ -22,15 +30,15 @@ namespace Mabv.Breakout.Entities
             IPhysics leftWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(-boundarySize + 90, -boundarySize)));
             IPhysics rightWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(levelWidth - 90, -boundarySize)));
 
-            ICollider topWallCollider = new BoxCollider(levelWidth + 2 * boundarySize, boundarySize, topWallPhysics, null, this);
-            ICollider bottomWallCollider = new BoxCollider(levelWidth + 2 * boundarySize, boundarySize, bottomWallPhysics, null, this);
-            ICollider leftWallCollider = new BoxCollider(boundarySize, levelHeight + 2 * boundarySize, leftWallPhysics, null, this);
-            ICollider rightWallCollider = new BoxCollider(boundarySize, levelHeight + 2 * boundarySize, rightWallPhysics, null, this);
+            topWallCollider = new BoxCollider(levelWidth + 2 * boundarySize, boundarySize, topWallPhysics, null, this);
+            bottomWallCollider = new BoxCollider(levelWidth + 2 * boundarySize, boundarySize, bottomWallPhysics, null, this);
+            leftWallCollider = new BoxCollider(boundarySize, levelHeight + 2 * boundarySize, leftWallPhysics, null, this);
+            rightWallCollider = new BoxCollider(boundarySize, levelHeight + 2 * boundarySize, rightWallPhysics, null, this);
 
-            collisionController.AddCollider(topWallCollider);
-            collisionController.AddCollider(bottomWallCollider);
-            collisionController.AddCollider(leftWallCollider);
-            collisionController.AddCollider(rightWallCollider);
+            this.collisionController.AddCollider(topWallCollider);
+            this.collisionController.AddCollider(bottomWallCollider);
+            this.collisionController.AddCollider(leftWallCollider);
+            this.collisionController.AddCollider(rightWallCollider);
         }
 
         public void Update()
@@ -41,6 +49,14 @@ namespace Mabv.Breakout.Entities
         public void Draw(SpriteBatch spriteBatch)
         {
             // do nothing
+        }
+
+        public void Destroy()
+        {
+            collisionController.RemoveCollider(topWallCollider);
+            collisionController.RemoveCollider(bottomWallCollider);
+            collisionController.RemoveCollider(leftWallCollider);
+            collisionController.RemoveCollider(rightWallCollider);
         }
     }
 }
