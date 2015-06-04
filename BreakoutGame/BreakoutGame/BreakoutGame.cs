@@ -32,30 +32,25 @@ namespace Mabv.Breakout
         private IController collisionController;
         private GameEntityController gameEntityController;
         private KeyboardInputController keyboardInputController;
-        private GameData gameData;
         private View view;
+        private Player player;
         private ILevel level;
         
         public BreakoutGame()
         {
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = BreakoutGame.WindowWidth;
-            graphics.PreferredBackBufferHeight = BreakoutGame.WindowHeight;
-            graphics.ApplyChanges();
-            Content.RootDirectory = "Content";
-            collisionController = new CollisionController();
-            gameEntityController = new GameEntityController();
-            keyboardInputController = new KeyboardInputController();
-            gameData = new GameData();
-            view = new View(WindowWidth, WindowHeight);
-        }
+            this.collisionController = new CollisionController();
+            this.gameEntityController = new GameEntityController();
+            this.keyboardInputController = new KeyboardInputController();
+            this.view = new View(BreakoutGame.WindowWidth, BreakoutGame.WindowHeight);
+            this.player = new Player();
 
-        public void IncreaseScore()
-        {
-            int scoreIncrement = 10;
-            gameData.Score += scoreIncrement;
-            
-            level.Hud.IncreaseScore(scoreIncrement);
+            graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = view.Width;
+            graphics.PreferredBackBufferHeight = view.Height;
+            graphics.ApplyChanges();
+
+            Content.RootDirectory = "Content";
+
         }
 
         protected override void Initialize()
@@ -74,7 +69,7 @@ namespace Mabv.Breakout
             Songs.LoadContent(Content);
             Fonts.LoadContent(Content);
 
-            level = new LevelOne(this, view, gameEntityController, keyboardInputController);
+            level = new LevelOne(this, view, player, gameEntityController, keyboardInputController);
             level.Start();
         }
 

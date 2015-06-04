@@ -8,7 +8,6 @@ namespace Mabv.Breakout.Levels
 {
     public interface ILevel
     {
-        Hud Hud { get; }
         void Start();
     }
 }

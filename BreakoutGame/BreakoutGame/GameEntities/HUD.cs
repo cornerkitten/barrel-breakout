@@ -9,7 +9,6 @@ namespace Mabv.Breakout.GameEntities
 {
     public class Hud : IGameEntity
     {
-        private BreakoutGame game;
         private int score;
         private int displayedScore;
         private int displayUpdateCounter;
@@ -21,9 +20,8 @@ namespace Mabv.Breakout.GameEntities
         private bool isBecomingHidden;
         private int hideCounter;
 
-        public Hud(BreakoutGame game)
+        public Hud()
         {
-            this.game = game;
             this.score = 0;
             this.displayUpdateCounter = 0;
             this.nextDisplayUpdateThreshold = 3;

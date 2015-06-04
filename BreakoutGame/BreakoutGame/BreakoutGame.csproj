@@ -78,7 +78,6 @@
     <Compile Include="Behaviors\BananaBunchBehavior.cs" />
     <Compile Include="Behaviors\PaddleBehavior.cs" />
     <Compile Include="Fonts.cs" />
-    <Compile Include="GameData.cs" />
     <Compile Include="GameEntities\BananaBunch.cs" />
     <Compile Include="GameEntities\Hud.cs" />
     <Compile Include="GameEntities\LevelBoundary.cs" />
@@ -92,6 +91,7 @@
     <Compile Include="Commands\MoveRightCommand.cs" />
     <Compile Include="Commands\MoveUpCommand.cs" />
     <Compile Include="Levels\LevelOne.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Songs.cs" />
     <Compile Include="Physics\RigidBodyPhysics.cs" />
     <Compile Include="Commands\QuitGameCommand.cs" />

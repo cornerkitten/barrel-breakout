@@ -12,18 +12,19 @@ namespace Mabv.Breakout.Levels
 {
     public class LevelOne : ILevel
     {
-        public Hud Hud { get { return hud; } }
         private BreakoutGame game;
         private View view;
+        private Player player;
         private GameEntityController gameEntityController;
         private KeyboardInputController keyboardInputController;
         private Paddle paddle;
         private Hud hud;
 
-        public LevelOne(BreakoutGame game, View view, GameEntityController gameEntityController, KeyboardInputController keyboardInputController)
+        public LevelOne(BreakoutGame game, View view, Player player, GameEntityController gameEntityController, KeyboardInputController keyboardInputController)
         {
             this.game = game;
             this.view = view;
+            this.player = player;
             this.gameEntityController = gameEntityController;
             this.keyboardInputController = keyboardInputController;
         }
@@ -45,7 +46,7 @@ namespace Mabv.Breakout.Levels
             {
                 for (int j = 32; j < view.Height / 2 - 64; j += 64)
                 {
-                    gameEntityController.AddGameEntity(new BananaBunch(game, new Vector2(i + 8, j + 8)));
+                    gameEntityController.AddGameEntity(new BananaBunch(game, player, new Vector2(i + 8, j + 8)));
 
                     gameEntityController.AddGameEntity(new Barrel(game, new Vector2(i, j)));
                 }
@@ -56,8 +57,9 @@ namespace Mabv.Breakout.Levels
             gameEntityController.AddGameEntity(new DonkeyKong(game, new Vector2(view.Width / 2, view.Height / 2)));
             gameEntityController.AddGameEntity(new LevelBoundary(game));
 
-            hud = new Hud(game);
+            Hud hud = new Hud();
             gameEntityController.AddGameEntity(hud);
+            player.Hud = hud;
         }
 
         private void registerControls()
