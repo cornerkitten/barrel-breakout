@@ -1,5 +1,6 @@
 ﻿using Mabv.Breakout.Behaviors;
 using Mabv.Breakout.Collisions;
+using Mabv.Breakout.Levels;
 using Mabv.Breakout.Physics;
 using Mabv.Breakout.Sprites;
 using Microsoft.Xna.Framework;
@@ -21,14 +22,14 @@ namespace Mabv.Breakout.Entities
         private ICollider collider;
         private IBehavior behavior;
 
-        public DonkeyKong(Vector2 location, CollisionController collisionController)
+        public DonkeyKong(Vector2 location, ILevel level, CollisionController collisionController)
         {
             this.transform = new Transform(location);
             this.collisionController = collisionController;
             this.physics = new RigidBodyPhysics(this.transform);
             this.physics.Velocity = new Vector2(3, -3);
             this.sprite = new AnimatedSprite(Textures.RotatingDonkeyKong, 1, 16, 2);
-            this.behavior = new DonkeyKongBehavior(this);
+            this.behavior = new DonkeyKongBehavior(this, level);
             this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
             this.collisionController.AddCollider(this.collider);
         }

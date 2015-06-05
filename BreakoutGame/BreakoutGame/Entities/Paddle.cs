@@ -37,6 +37,8 @@ namespace Mabv.Breakout.Entities
             this.collider = new BoxCollider(this.sprite.Width, (int)(this.sprite.Height * .75f), this.physics, this.behavior, this);
             this.collisionController.AddCollider(this.collider);
 
+            this.transform.Location -= new Vector2(this.sprite.Width / 2, 0);
+
             this.wobbleCounter = 0;
             this.wobbleEnd = 8;
             this.isWobbling = false;

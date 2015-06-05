@@ -1,5 +1,6 @@
 ﻿using Mabv.Breakout.Collisions;
 using Mabv.Breakout.Entities;
+using Mabv.Breakout.Levels;
 using Mabv.Breakout.Physics;
 using Microsoft.Xna.Framework;
 using System;
@@ -13,10 +14,12 @@ namespace Mabv.Breakout.Behaviors
     {
         private static Random random = new Random();
         private DonkeyKong donkeyKong;
+        private ILevel level;
 
-        public DonkeyKongBehavior(DonkeyKong donkeyKong)
+        public DonkeyKongBehavior(DonkeyKong donkeyKong, ILevel level)
         {
             this.donkeyKong = donkeyKong;
+            this.level = level;
         }
 
         override public void OnCollisionEnter(ICollision collision)
@@ -32,6 +35,11 @@ namespace Mabv.Breakout.Behaviors
             {
                 SoundEffects.BarrelBounce.Play(0.75f, 0.0f, 0.0f);
             }
+
+             if (collision.Collider.AttachedGameEntity is PerishZone)
+             {
+                 level.Restart();
+             }
 
             if (collision.Collider.AttachedGameEntity is Paddle)
             {

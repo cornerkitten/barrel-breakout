@@ -13,7 +13,7 @@ namespace Mabv.Breakout.Entities
     {
         private CollisionController collisionController;
         ICollider topWallCollider;
-        ICollider bottomWallCollider;
+        //ICollider bottomWallCollider;
         ICollider leftWallCollider;
         ICollider rightWallCollider;
 
@@ -26,17 +26,17 @@ namespace Mabv.Breakout.Entities
             int boundarySize = 64;
             
             IPhysics topWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(-boundarySize, -boundarySize)));
-            IPhysics bottomWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(-boundarySize, levelHeight)));
+            //IPhysics bottomWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(-boundarySize, levelHeight)));
             IPhysics leftWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(-boundarySize + 90, -boundarySize)));
             IPhysics rightWallPhysics = new RigidBodyPhysics(new Transform(new Vector2(levelWidth - 90, -boundarySize)));
 
             topWallCollider = new BoxCollider(levelWidth + 2 * boundarySize, boundarySize, topWallPhysics, null, this);
-            bottomWallCollider = new BoxCollider(levelWidth + 2 * boundarySize, boundarySize, bottomWallPhysics, null, this);
+            //bottomWallCollider = new BoxCollider(levelWidth + 2 * boundarySize, boundarySize, bottomWallPhysics, null, this);
             leftWallCollider = new BoxCollider(boundarySize, levelHeight + 2 * boundarySize, leftWallPhysics, null, this);
             rightWallCollider = new BoxCollider(boundarySize, levelHeight + 2 * boundarySize, rightWallPhysics, null, this);
 
             this.collisionController.AddCollider(topWallCollider);
-            this.collisionController.AddCollider(bottomWallCollider);
+            //this.collisionController.AddCollider(bottomWallCollider);
             this.collisionController.AddCollider(leftWallCollider);
             this.collisionController.AddCollider(rightWallCollider);
         }
@@ -54,7 +54,7 @@ namespace Mabv.Breakout.Entities
         public void Destroy()
         {
             collisionController.RemoveCollider(topWallCollider);
-            collisionController.RemoveCollider(bottomWallCollider);
+            //collisionController.RemoveCollider(bottomWallCollider);
             collisionController.RemoveCollider(leftWallCollider);
             collisionController.RemoveCollider(rightWallCollider);
         }
