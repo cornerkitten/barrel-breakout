@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Mabv.Breakout.Sprites;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Mabv.Breakout.Entities
     {
         private int score;
         private int displayedScore;
+        private int displayedLives;
         private int displayUpdateCounter;
         private int nextDisplayUpdateThreshold;
         private Vector2 scoreLocation;
@@ -19,6 +21,7 @@ namespace Mabv.Breakout.Entities
         private bool isBecomingVisible;
         private bool isBecomingHidden;
         private int hideCounter;
+        private ISprite livesBalloonSprite;
 
         public Hud(int initialScore)
         {
@@ -32,6 +35,9 @@ namespace Mabv.Breakout.Entities
             this.hideCounter = 0;
             this.displayedScore = this.score;
             this.scoreLocation = this.hiddenScoreLocation;
+            this.livesBalloonSprite = new AnimatedSprite(Textures.LivesBalloon, 1, 14);
+
+            this.displayedLives = 3;
         }
 
         public void Update()
@@ -84,13 +90,18 @@ namespace Mabv.Breakout.Entities
                     isBecomingHidden = false;
                 }
             }
+
+            livesBalloonSprite.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
             spriteBatch.DrawString(Fonts.Banana, displayedScore.ToString(), scoreLocation, Color.White);
+            spriteBatch.DrawString(Fonts.Banana, displayedLives.ToString(), new Vector2(800 - 100 - 48, scoreLocation.Y), Color.White);
             spriteBatch.End();
+
+            livesBalloonSprite.Draw(spriteBatch, new Vector2(800 - 100 - 48 - livesBalloonSprite.Width - 8, scoreLocation.Y - 4));
         }
 
         public void Destroy()
