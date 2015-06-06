@@ -16,20 +16,24 @@ namespace Mabv.Breakout.Entities
     {
         public ITransform Transform { get { return transform; } }
         private ITransform transform;
+        private Player player;
+        private ILevel level;
         private CollisionController collisionController;
         private ISprite sprite;
         private IPhysics physics;
         private ICollider collider;
         private IBehavior behavior;
 
-        public DonkeyKong(Vector2 location, ILevel level, CollisionController collisionController)
+        public DonkeyKong(Vector2 location, Player player, ILevel level, CollisionController collisionController)
         {
             this.transform = new Transform(location);
+            this.player = player;
+            this.level = level;
             this.collisionController = collisionController;
             this.physics = new RigidBodyPhysics(this.transform);
             this.physics.Velocity = new Vector2(3, -3);
             this.sprite = new AnimatedSprite(Textures.RotatingDonkeyKong, 1, 16, 2);
-            this.behavior = new DonkeyKongBehavior(this, level);
+            this.behavior = new DonkeyKongBehavior(this);
             this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
             this.collisionController.AddCollider(this.collider);
         }
@@ -87,6 +91,12 @@ namespace Mabv.Breakout.Entities
             newVelocityDirection.Normalize();
 
             physics.Velocity = newVelocityDirection * newVelocityMagnitude;
+        }
+
+        public void Perish()
+        {
+            player.LoseLife();
+            level.Restart();
         }
 
         public bool IsMovingLeft()

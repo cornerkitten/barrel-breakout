@@ -22,8 +22,9 @@ namespace Mabv.Breakout.Entities
         private bool isBecomingHidden;
         private int hideCounter;
         private ISprite livesBalloonSprite;
+        private ISprite bananaSprite;
 
-        public Hud(int initialScore)
+        public Hud(int initialScore, int initialLives)
         {
             this.score = initialScore;
             this.displayUpdateCounter = 0;
@@ -35,9 +36,10 @@ namespace Mabv.Breakout.Entities
             this.hideCounter = 0;
             this.displayedScore = this.score;
             this.scoreLocation = this.hiddenScoreLocation;
-            this.livesBalloonSprite = new AnimatedSprite(Textures.LivesBalloon, 1, 14);
+            this.bananaSprite = new AnimatedSprite(Textures.RotatingBanana, 1, 8);
+            this.livesBalloonSprite = new AnimatedSprite(Textures.LivesBalloon, 1, 14, 4);
 
-            this.displayedLives = 3;
+            this.displayedLives = initialLives;
         }
 
         public void Update()
@@ -92,15 +94,18 @@ namespace Mabv.Breakout.Entities
             }
 
             livesBalloonSprite.Update();
+            bananaSprite.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            Vector2 scoreTextAdjustment = new Vector2(32, 0);
             spriteBatch.Begin();
-            spriteBatch.DrawString(Fonts.Banana, displayedScore.ToString(), scoreLocation, Color.White);
+            spriteBatch.DrawString(Fonts.Banana, displayedScore.ToString(), scoreLocation + scoreTextAdjustment, Color.White);
             spriteBatch.DrawString(Fonts.Banana, displayedLives.ToString(), new Vector2(800 - 100 - 48, scoreLocation.Y), Color.White);
             spriteBatch.End();
 
+            bananaSprite.Draw(spriteBatch, scoreLocation + new Vector2(0, -4));
             livesBalloonSprite.Draw(spriteBatch, new Vector2(800 - 100 - 48 - livesBalloonSprite.Width - 8, scoreLocation.Y - 4));
         }
 
@@ -114,6 +119,11 @@ namespace Mabv.Breakout.Entities
             displayedScore = score;
             score += scoreIncrement;
             isBecomingVisible = true;
+        }
+
+        public void LoseLife()
+        {
+            displayedLives--;
         }
     }
 }

@@ -14,12 +14,10 @@ namespace Mabv.Breakout.Behaviors
     {
         private static Random random = new Random();
         private DonkeyKong donkeyKong;
-        private ILevel level;
 
-        public DonkeyKongBehavior(DonkeyKong donkeyKong, ILevel level)
+        public DonkeyKongBehavior(DonkeyKong donkeyKong)
         {
             this.donkeyKong = donkeyKong;
-            this.level = level;
         }
 
         override public void OnCollisionEnter(ICollision collision)
@@ -38,7 +36,8 @@ namespace Mabv.Breakout.Behaviors
 
              if (collision.Collider.AttachedGameEntity is PerishZone)
              {
-                 level.Restart();
+
+                 donkeyKong.Perish();
              }
 
             if (collision.Collider.AttachedGameEntity is Paddle)

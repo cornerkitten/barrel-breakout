@@ -94,11 +94,11 @@ namespace Mabv.Breakout.Levels
 
             paddle = new Paddle(new Vector2(view.Width / 2, view.Height - 64), collisionController);
             entityController.AddEntity(paddle);
-            entityController.AddEntity(new DonkeyKong(new Vector2(view.Width / 2, view.Height / 2), this, collisionController));
+            entityController.AddEntity(new DonkeyKong(new Vector2(view.Width / 2, view.Height / 2), player, this, collisionController));
             entityController.AddEntity(new LevelBoundary(collisionController));
             entityController.AddEntity(new PerishZone(view, collisionController));
 
-            Hud hud = new Hud(player.Score);
+            Hud hud = new Hud(player.Score, player.Lives);
             entityController.AddEntity(hud);
             player.Hud = hud;
         }
