@@ -79,8 +79,11 @@
     <Compile Include="Behaviors\PaddleBehavior.cs" />
     <Compile Include="Commands\QuitLevelCommand.cs" />
     <Compile Include="Commands\RestartLevelCommand.cs" />
+    <Compile Include="Entities\BasicTimer.cs" />
     <Compile Include="Entities\HudValue.cs" />
+    <Compile Include="Entities\IHud.cs" />
     <Compile Include="Entities\LinearTween.cs" />
+    <Compile Include="Entities\NewHud.cs" />
     <Compile Include="Entities\PerishZone.cs" />
     <Compile Include="Fonts.cs" />
     <Compile Include="Entities\BananaBunch.cs" />

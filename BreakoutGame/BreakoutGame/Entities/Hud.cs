@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Mabv.Breakout.Entities
 {
-    public class Hud : IEntity
+    public class Hud : IHud
     {
         private int score;
         private int displayedScore;

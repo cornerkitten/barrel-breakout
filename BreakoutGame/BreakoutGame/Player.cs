@@ -10,7 +10,7 @@ namespace Mabv.Breakout
     {
         public int Score { get { return score; } }
         public int Lives { get { return lives; } }
-        public Hud Hud { get; set; }
+        public IHud Hud { get; set; }
         private const int ScoreIncrement = 10;
         private int score;
         private int lives;
