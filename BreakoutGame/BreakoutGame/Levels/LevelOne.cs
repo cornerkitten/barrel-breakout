@@ -98,7 +98,7 @@ namespace Mabv.Breakout.Levels
             entityController.AddEntity(new LevelBoundary(collisionController));
             entityController.AddEntity(new PerishZone(view, collisionController));
 
-            IHud hud = new NewHud(player.Score, player.Lives, view);
+            IHud hud = new Hud(player.Score, player.Lives, view);
             entityController.AddEntity(hud);
             player.Hud = hud;
         }
