@@ -12,6 +12,7 @@ namespace Mabv.Breakout.Levels
         void Start();
         void Restart();
         void Quit();
+        void ChangeToGameOver();
         void Update();
         void Draw(SpriteBatch spriteBatch);
     }

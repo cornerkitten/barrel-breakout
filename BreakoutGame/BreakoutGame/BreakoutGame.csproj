@@ -79,9 +79,11 @@
     <Compile Include="Behaviors\BananaBunchBehavior.cs" />
     <Compile Include="Behaviors\LivesHudCounterBehavior.cs" />
     <Compile Include="Behaviors\PaddleBehavior.cs" />
+    <Compile Include="Commands\GameOverCommand.cs" />
     <Compile Include="Commands\QuitLevelCommand.cs" />
     <Compile Include="Commands\RestartLevelCommand.cs" />
     <Compile Include="BasicTimer.cs" />
+    <Compile Include="Entities\GameOverBackground.cs" />
     <Compile Include="Entities\Hud\HudCounter.cs" />
     <Compile Include="Entities\Hud\IHud.cs" />
     <Compile Include="Entities\LinearTween.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Entities\JungleBackground.cs" />
     <Compile Include="Entities\Paddle.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Levels\GameOverScreen.cs" />
     <Compile Include="Levels\ILevel.cs" />
     <Compile Include="KeyboardInputController.cs" />
     <Compile Include="Commands\MoveDownCommand.cs" />

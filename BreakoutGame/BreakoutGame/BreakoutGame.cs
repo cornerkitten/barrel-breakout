@@ -17,6 +17,7 @@ namespace Mabv.Breakout
 {
     public class BreakoutGame : Microsoft.Xna.Framework.Game
     {
+        public ILevel Level { set { level = value; } }
         private const int WindowWidth = 800;
         private const int WindowHeight = 600;
         private GraphicsDeviceManager graphics;

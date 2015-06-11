@@ -18,6 +18,7 @@ namespace Mabv.Breakout
         public static Texture2D LivesBalloonPopping { get { return livesBalloonPopping; } }
         public static Texture2D RotatingBanana { get { return rotatingBanana; } }
         public static Texture2D JungleBackground { get { return jungleBackground; } }
+        public static Texture2D GameOverBackground { get { return gameOverBackground; } }
         private static Texture2D rotatingBarrel;
         private static Texture2D rotatingDonkeyKong;
         private static Texture2D smokeExplosion;
@@ -27,6 +28,7 @@ namespace Mabv.Breakout
         private static Texture2D livesBalloonPopping;
         private static Texture2D rotatingBanana;
         private static Texture2D jungleBackground;
+        private static Texture2D gameOverBackground;
 
         public static void LoadContent(ContentManager content)
         {
@@ -40,6 +42,7 @@ namespace Mabv.Breakout
             livesBalloonPopping = content.Load<Texture2D>("textures/dkc-dk-lives-balloon-popping");
             rotatingBanana = content.Load<Texture2D>("textures/dkc-rotating-banana");
             jungleBackground = content.Load<Texture2D>("textures/backgrounds/dkc-jungle");
+            gameOverBackground = content.Load<Texture2D>("textures/backgrounds/dkc-game-over");
         }
     }
 }

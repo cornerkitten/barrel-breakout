@@ -21,6 +21,7 @@ namespace Mabv.Breakout.Levels
         private CollisionController collisionController;
         private KeyboardController keyboardController;
         private bool hasRestartRequest;
+        private bool hasLevelChangeRequest;
         private Paddle paddle;
 
         public LevelOne(BreakoutGame game, View view, Player player, EntityController entityController, CollisionController collisionController, KeyboardController keyboardController)
@@ -32,12 +33,13 @@ namespace Mabv.Breakout.Levels
             this.collisionController = collisionController;
             this.keyboardController = keyboardController;
             this.hasRestartRequest = false;
+            this.hasLevelChangeRequest = false;
         }
 
         public void Start()
         {
-            populate();
-            registerControls();
+            Populate();
+            RegisterControls();
 
             if (MediaPlayer.State != MediaState.Playing)
             {
@@ -48,13 +50,18 @@ namespace Mabv.Breakout.Levels
 
         public void Quit()
         {
-            deregisterControls();
-            unpopulate();
+            DeregisterControls();
+            Unpopulate();
         }
 
         public void Restart()
         {
             hasRestartRequest = true;
+        }
+
+        public void ChangeToGameOver()
+        {
+            hasLevelChangeRequest = true;
         }
 
         public void Update()
@@ -68,9 +75,23 @@ namespace Mabv.Breakout.Levels
                 Start();
             }
 
-            keyboardController.Update();
-            entityController.Update();
-            collisionController.Update();
+            if (hasLevelChangeRequest)
+            {
+                Quit();
+
+                hasLevelChangeRequest = false;
+
+                ILevel gameOverScreen = new GameOverScreen(game, entityController, keyboardController, collisionController);
+                game.Level = gameOverScreen;
+                gameOverScreen.Start();
+                
+            }
+            else
+            {
+                keyboardController.Update();
+                entityController.Update();
+                collisionController.Update();
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -78,7 +99,7 @@ namespace Mabv.Breakout.Levels
             entityController.Draw(spriteBatch);
         }
 
-        private void populate()
+        private void Populate()
         {
             entityController.AddEntity(new JungleBackground());
 
@@ -103,11 +124,11 @@ namespace Mabv.Breakout.Levels
             player.Hud = hud;
         }
 
-        private void unpopulate()
+        private void Unpopulate()
         {
             player.Hud = null;
 
-            foreach(IEntity entity in entityController.Entities)
+            foreach (IEntity entity in entityController.Entities)
             {
                 entity.Destroy();
             }
@@ -117,7 +138,7 @@ namespace Mabv.Breakout.Levels
             entityController.Flush();
         }
 
-        private void registerControls()
+        private void RegisterControls()
         {
             ICommand moveLeftCommand = new MoveLeftCommand(paddle);
             ICommand moveRightCommand = new MoveRightCommand(paddle);
@@ -148,7 +169,7 @@ namespace Mabv.Breakout.Levels
             keyboardController.RegisterCommandKeyDown(Keys.T, quitLevelCommand);
         }
 
-        private void deregisterControls()
+        private void DeregisterControls()
         {
             keyboardController.DeregisterAllCommands();
         }

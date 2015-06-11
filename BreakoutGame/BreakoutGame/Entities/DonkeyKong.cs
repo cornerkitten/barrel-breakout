@@ -19,6 +19,7 @@ namespace Mabv.Breakout.Entities
         private ITransform transform;
         private Player player;
         private ICommand restartLevelCommand;
+        private ICommand gameOverCommand;
         private CollisionController collisionController;
         private ISprite sprite;
         private IPhysics physics;
@@ -31,6 +32,7 @@ namespace Mabv.Breakout.Entities
             this.transform = new Transform(location);
             this.player = player;
             this.restartLevelCommand = new RestartLevelCommand(level);
+            this.gameOverCommand = new GameOverCommand(level);
             this.collisionController = collisionController;
             this.physics = new RigidBodyPhysics(this.transform);
             this.physics.Velocity = new Vector2(3, -3);
@@ -45,7 +47,14 @@ namespace Mabv.Breakout.Entities
         {
             if (perishTimer.IsRinging())
             {
-                restartLevelCommand.Execute();
+                if (player.Lives == 0)
+                {
+                    gameOverCommand.Execute();
+                }
+                else
+                {
+                    restartLevelCommand.Execute();
+                }
             }
 
             physics.Update();
