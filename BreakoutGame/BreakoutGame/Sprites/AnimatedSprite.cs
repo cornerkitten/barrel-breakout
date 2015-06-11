@@ -21,10 +21,12 @@ namespace Mabv.Breakout.Sprites
         private int textureColumns;
         private Texture2D texture;
         private IBehavior attachedBehavior;
+        private bool isLooping;
+        private bool isAnimating;
         private int width;
         private int height;
 
-        public AnimatedSprite(Texture2D texture, int textureRows, int textureColumns, int nextFrameThreshold = 5, IBehavior attachedBehavior = null, bool hasRandomStartFrame = false)
+        public AnimatedSprite(Texture2D texture, int textureRows, int textureColumns, int nextFrameThreshold = 5, IBehavior attachedBehavior = null, bool hasRandomStartFrame = false, bool isLooping = true)
         {
             this.texture = texture;
             this.currentFrame = 0;
@@ -34,6 +36,8 @@ namespace Mabv.Breakout.Sprites
             this.textureColumns = textureColumns;
             this.totalFrames = this.textureColumns;
             this.attachedBehavior = attachedBehavior;
+            this.isLooping = isLooping;
+            this.isAnimating = true;
             this.width = texture.Width / textureColumns;
             this.height = texture.Height / textureRows;
 
@@ -50,7 +54,11 @@ namespace Mabv.Breakout.Sprites
 
         public void Update()
         {
-            nextFrameCounter++;
+            if (isAnimating)
+            {
+                nextFrameCounter++;
+            }
+            
             if (nextFrameCounter == nextFrameThreshold)
             {
                 currentFrame++;
@@ -59,7 +67,16 @@ namespace Mabv.Breakout.Sprites
 
             if (currentFrame == totalFrames)
             {
-                currentFrame = 0;
+                if (isLooping)
+                {
+                    currentFrame = 0;
+                }
+                else
+                {
+                    currentFrame--;
+                    isAnimating = false;
+                }
+
                 if (attachedBehavior != null)
                 {
                     attachedBehavior.OnAnimationEnd();

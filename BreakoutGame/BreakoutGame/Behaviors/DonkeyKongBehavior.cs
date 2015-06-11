@@ -36,8 +36,8 @@ namespace Mabv.Breakout.Behaviors
 
              if (collision.Collider.AttachedGameEntity is PerishZone)
              {
-
                  donkeyKong.Perish();
+                 return;
              }
 
             if (collision.Collider.AttachedGameEntity is Paddle)

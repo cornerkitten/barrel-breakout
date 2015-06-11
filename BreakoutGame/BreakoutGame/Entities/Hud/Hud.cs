@@ -1,4 +1,5 @@
-﻿using Mabv.Breakout.Sprites;
+﻿using Mabv.Breakout.Behaviors;
+using Mabv.Breakout.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,7 +13,7 @@ namespace Mabv.Breakout.Entities
     {
         HudCounter bananaHudCounter;
         HudCounter livesHudCounter;
-        BasicTimer timer;
+        BasicTimer hideTimer;
 
         public Hud(int initialScore, int initialLives, View view)
         {
@@ -21,13 +22,13 @@ namespace Mabv.Breakout.Entities
             this.bananaHudCounter = new HudCounter(new Vector2(100 + 16, view.Height - 48), new Vector2(100 + 16, view.Height + 8), initialScore, bananaSprite);
             this.livesHudCounter = new HudCounter(new Vector2(view.Width - 100 - 72, view.Height - 48), new Vector2(view.Width - 100 - 72, view.Height + 8), initialLives, balloonSprite);
 
-            this.timer = new BasicTimer(60);
-            this.timer.Start();
+            this.hideTimer = new BasicTimer(60);
+            this.hideTimer.Start();
         }
 
         public void Update()
         {
-            if (timer.IsRinging())
+            if (hideTimer.IsRinging())
             {
                 bananaHudCounter.Hide();
                 livesHudCounter.Hide();
@@ -35,7 +36,7 @@ namespace Mabv.Breakout.Entities
             
             bananaHudCounter.Update();
             livesHudCounter.Update();
-            timer.Update();
+            hideTimer.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -53,14 +54,17 @@ namespace Mabv.Breakout.Entities
         {
             bananaHudCounter.Count += scoreIncrement;
             bananaHudCounter.Show();
-            timer.Start();
+            hideTimer.Start();
         }
 
         public void LoseLife()
         {
-            livesHudCounter.Count++;
             livesHudCounter.Show();
-            timer.Start();
+
+            IBehavior animationEndBehavior = new LivesHudCounterBehavior(livesHudCounter);
+            livesHudCounter.IconSprite = new AnimatedSprite(Textures.LivesBalloonPopping, 1, 8, 2, animationEndBehavior, false, false);
+
+            SoundEffects.BalloonPop.Play();
         }
     }
 }

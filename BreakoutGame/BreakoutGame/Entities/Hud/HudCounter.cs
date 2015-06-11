@@ -10,12 +10,18 @@ namespace Mabv.Breakout.Entities
 {
     public class HudCounter : IEntity
     {
-        public int Count {
+        public int Count
+        {
             get { return count; }
             set {
                 displayedCount = count;
                 count = value;
             }
+        }
+        public ISprite IconSprite
+        {
+            get { return iconSprite; }
+            set { iconSprite = value; }
         }
         private ITransform transform;
         private LinearTween locationTween;

@@ -1,5 +1,6 @@
 ﻿using Mabv.Breakout.Behaviors;
 using Mabv.Breakout.Collisions;
+using Mabv.Breakout.Commands;
 using Mabv.Breakout.Levels;
 using Mabv.Breakout.Physics;
 using Mabv.Breakout.Sprites;
@@ -17,18 +18,19 @@ namespace Mabv.Breakout.Entities
         public ITransform Transform { get { return transform; } }
         private ITransform transform;
         private Player player;
-        private ILevel level;
+        private ICommand restartLevelCommand;
         private CollisionController collisionController;
         private ISprite sprite;
         private IPhysics physics;
         private ICollider collider;
         private IBehavior behavior;
+        private BasicTimer perishTimer;
 
         public DonkeyKong(Vector2 location, Player player, ILevel level, CollisionController collisionController)
         {
             this.transform = new Transform(location);
             this.player = player;
-            this.level = level;
+            this.restartLevelCommand = new RestartLevelCommand(level);
             this.collisionController = collisionController;
             this.physics = new RigidBodyPhysics(this.transform);
             this.physics.Velocity = new Vector2(3, -3);
@@ -36,12 +38,19 @@ namespace Mabv.Breakout.Entities
             this.behavior = new DonkeyKongBehavior(this);
             this.collider = new BoxCollider(this.sprite.Width, this.sprite.Height, this.physics, this.behavior, this);
             this.collisionController.AddCollider(this.collider);
+            this.perishTimer = new BasicTimer(70);
         }
 
         public void Update()
         {
+            if (perishTimer.IsRinging())
+            {
+                restartLevelCommand.Execute();
+            }
+
             physics.Update();
             sprite.Update();
+            perishTimer.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -96,7 +105,8 @@ namespace Mabv.Breakout.Entities
         public void Perish()
         {
             player.LoseLife();
-            level.Restart();
+            Destroy();
+            perishTimer.Start();
         }
 
         public bool IsMovingLeft()
