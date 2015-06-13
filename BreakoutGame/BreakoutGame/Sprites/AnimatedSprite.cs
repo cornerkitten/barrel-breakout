@@ -96,5 +96,21 @@ namespace Mabv.Breakout.Sprites
             spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
             spriteBatch.End();
         }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 location, float rotation)
+        {
+            int row = (int)((float)currentFrame / (float)textureColumns);
+            int column = currentFrame % textureColumns;
+
+            Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width, height);
+            Vector2 origin = new Vector2(destinationRectangle.Width / 2, destinationRectangle.Height / 2);
+            destinationRectangle.X += (int)origin.X;
+            destinationRectangle.Y += (int)origin.Y;
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White, rotation, origin, SpriteEffects.None, 0);
+            spriteBatch.End();
+        }
     }
 }

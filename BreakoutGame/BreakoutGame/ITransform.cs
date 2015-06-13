@@ -9,5 +9,6 @@ namespace Mabv.Breakout
     public interface ITransform
     {
         Vector2 Location { get; set; }
+        float Rotation { get; set; }
     }
 }

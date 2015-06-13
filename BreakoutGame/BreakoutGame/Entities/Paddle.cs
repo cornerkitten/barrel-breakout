@@ -25,6 +25,7 @@ namespace Mabv.Breakout.Entities
         private int wobbleEnd;
         private bool isWobbling;
         private Vector2 wobbleOffset;
+        private float wobbleRotationTarget;
 
         public Paddle(Vector2 location, CollisionController collisionController)
         {
@@ -40,7 +41,7 @@ namespace Mabv.Breakout.Entities
             this.transform.Location -= new Vector2(this.sprite.Width / 2, 0);
 
             this.wobbleCounter = 0;
-            this.wobbleEnd = 8;
+            this.wobbleEnd = 10;
             this.isWobbling = false;
             this.wobbleOffset = new Vector2();
         }
@@ -57,23 +58,28 @@ namespace Mabv.Breakout.Entities
                 if (wobbleCounter < wobbleEnd / 2)
                 {
                     wobbleOffset.Y += 1.5f;
+                    transform.Rotation += 3 * wobbleRotationTarget / wobbleEnd;
                 }
                 else if (wobbleCounter < wobbleEnd)
                 {
                     wobbleOffset.Y -= 1.5f;
+                    transform.Rotation -= 3 * wobbleRotationTarget / wobbleEnd;
                 }
                 else
                 {
                     wobbleOffset = Vector2.Zero;
+                    transform.Rotation = 0;
                     isWobbling = false;
                     wobbleCounter = 0;
                 }
             }
+
+            //transform.Rotation += (float)Math.PI / 60;
         }
         
         public void Draw(SpriteBatch spriteBatch)
         {
-            sprite.Draw(spriteBatch, transform.Location + spriteOrigin + wobbleOffset);
+            sprite.Draw(spriteBatch, transform.Location + spriteOrigin + wobbleOffset, transform.Rotation);
         }
 
         public void Destroy()
@@ -118,9 +124,11 @@ namespace Mabv.Breakout.Entities
             return (this.physics.Velocity.X > 0);
         }
 
-        public void Wobble()
+        public void Wobble(float rotation)
         {
             isWobbling = true;
+
+            wobbleRotationTarget = rotation;
         }
     }
 }

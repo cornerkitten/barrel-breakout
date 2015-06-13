@@ -28,7 +28,9 @@ namespace Mabv.Breakout.Behaviors
 
             if (collision.Collider.AttachedGameEntity is DonkeyKong)
             {
-                paddle.Wobble();
+                float wobbleMagnitude = (collision.ReactingCollider.Centroid.X - collision.Collider.Centroid.X) / (collision.ReactingCollider.Width / 2);
+
+                paddle.Wobble(-wobbleMagnitude * 10.0f * (float)(Math.PI / 60.0f));
             }
         }
     }

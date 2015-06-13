@@ -13,5 +13,6 @@ namespace Mabv.Breakout.Sprites
         int Width { get; }
         void Update();
         void Draw(SpriteBatch spriteBatch, Vector2 location);
+        void Draw(SpriteBatch spriteBatch, Vector2 location, float rotation);
     }
 }
